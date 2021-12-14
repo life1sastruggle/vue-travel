@@ -1,18 +1,13 @@
 <template>
-  <div id='content'>
-    <div class='content_header'>
-      <div id='left-div'>
-        <div id='transfer'>
-          <select-spots/>
-        </div>
-      </div>
-      <div id='middle-div'>
-      </div>
-      <div id='right-div'>
+  <div class='content-main'>
+    <div class='left-div'>
+      <div class='transfer'>
+        <select-spots/>
       </div>
     </div>
-    <div id='footer'>
-      <a id="toinfo" href="/">AboutUs</a>
+    <div class='middle-div'>
+    </div>
+    <div class='right-div'>
     </div>
   </div>
 </template>
@@ -30,41 +25,27 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-#content {
-  margin-top: 75px;
+.content-main {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   overflow: hidden;
 }
 
-#left-div {
+.left-div {
   height: 100vh;
-  width: 30vw;
+  width: 25vw;
 }
 
-#right-div {
+.right-div {
   height: 100vh;
-  width: 30vw;
+  width: 25vw;
   background: #035a17
 }
 
-#middle-div {
+.middle-div {
   height: 100vh;
   width: 40vw;
   background: #e8d551
 }
 
-#footer {
-  text-align: left;
-  height: 42px;
-  width: 100%;
-  line-height: 42px;
-  border-top: none;
-  margin-top: 0;
-  background: #111111;
-}
-
-.content_header {
-  display: flex;
-}
 </style>

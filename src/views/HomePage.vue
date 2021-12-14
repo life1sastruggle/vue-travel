@@ -1,8 +1,8 @@
 <template>
-  <div id='home'>
+  <div class='home'>
     <div class='header'>
-      <div id='u'>
-        <a id="toindex" href="/">首页</a>
+      <div class='u'>
+        <a class="toindex" href="/">设置</a>
       </div>
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="首页" name="first"></el-tab-pane>
@@ -11,11 +11,18 @@
         <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
       </el-tabs>
     </div>
-    <div v-if='flag=="first"'>
-      <main-page/>
-    </div>
-    <div v-if='flag == "second"'>
-      <comment-page/>
+    <div class='container'>
+      <div class='content'>
+        <div v-if='flag=="first"'>
+          <main-page/>
+        </div>
+        <div v-if='flag == "second"'>
+          <comment-page/>
+        </div>
+      </div>
+      <div class='footer'>
+        <a class="toinfo" href="/">AboutUs</a>
+      </div>
     </div>
   </div>
 </template>
@@ -53,33 +60,50 @@ export default {
   width: 100%;
   line-height: 80px;
   z-index: 100;
-  border-bottom: 1px solid #000;
-
-  #u {
+  .u {
     z-index: 301;
     position: absolute;
     right: 0;
     top: 0;
-    margin: 21px 9px 5px 0;
+    margin: 21px 20px 5px 0;
     padding: 0;
   }
 
-  #toinfo {
+  .toinfo {
     text-align: center;
   }
 }
 
-#content {
-  margin-top: 75px;
+.container {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  margin-top: 90px;
+  width: 100vw;
 }
 
-#home {
+.home {
   display: flex;
   justify-content: space-between;
 
 }
 
+.footer {
+  text-align: left;
+  height: 82px;
+  width: 100%;
+  line-height: 42px;
+  border-top: none;
+  margin-top: 0;
+  background: #111111;
+}
+
+.content {
+  display: flex;
+  overflow: hidden;
+  margin: 0 5vw 0 5vw;
+}
+/deep/ .el-tabs__nav{
+  margin-left: 20px;
+}
 </style>

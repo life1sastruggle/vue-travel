@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import selectSpots from '@/components/selectSpots/index'
+import selectSpots from '../components/selectSpots/index'
 
 export default {
   data () {

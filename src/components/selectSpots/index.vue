@@ -1,36 +1,54 @@
 <template>
-
-  <div class =  'transfer'>
-    <p style="text-align: center; margin: 0 0 10px">选择你的目标景点</p>
+  <div class='spots-container'>
+  <div class='route'>
+  </div>
+  <div class='transfer'>
+    <p style="text-align: center; margin: 0 0 10px; background:#EBEEF5FF">选择你的目标景点</p>
     <el-transfer
       filterable
-      :data="data"
+      :data="spots"
       :titles="['Source', 'Target']"
-      :button-texts="['-', '+']"
       :format="{
         noChecked: '${total}',
         hasChecked: '${checked}/${total}'
       }"
       @change="handleChange"
-      >
-      <el-checkbox-group >
-         <el-checkbox-button  v-for="(city,i) in cities" :label="city" :key="i">{{city}}</el-checkbox-button>
-      </el-checkbox-group>
-      <el-button class="transfer-footer " slot="left-footer" size="small">操作</el-button>
-      <el-button class="transfer-footer" slot="right-footer" size="small">操作</el-button>
+    >
+      <!--      <el-checkbox-group v-model:="spots">-->
+      <!--&lt;!&ndash;        <el-checkbox-button  v-for="(spot,i) in spots" :label="spot" :key="i">{{ spot }}</el-checkbox-button>&ndash;&gt;-->
+      <!--      </el-checkbox-group>-->
+      <el-button class="transfer-footer " slot="left-footer" size="small">确定</el-button>
+      <el-button class="transfer-footer" slot="right-footer" size="small">取消</el-button>
     </el-transfer>
+  </div>
   </div>
 </template>
 <script>
+import {getSpots} from '../../common/api.js'
 
+const generateData = () => {
+  const spots = []
+  let p3 = []
+  const obj = {'keywords': '公园'}
+  getSpots(obj, (data) => {
+    p3 = data
+    for (let i = 0; i <= p3.length; i++) {
+      spots.push({
+        key: i,
+        label: `${p3[i].title}`,
+        disabled: false
+      })
+    }
+  })
+  return spots
+}
 export default {
   data () {
     return {
-      // cities: this.generateData(),
-      cities: [1, 2, 3],
       value: [],
+      spots: generateData(),
       renderFunc (h, option) {
-        return <span>{ option.key } - { option.label }</span>
+        return <span>{option.key} - {option.label}</span>
       }
     }
   },
@@ -38,50 +56,49 @@ export default {
   methods: {
     handleChange (value, direction, movedKeys) {
       console.log(value, direction, movedKeys)
-    },
-    generateData () {
-      const data = []
-      this.$api.getSpots({}, (data) => {
-        this.cities = data.cities
-      })
-      for (let i = 1; i <= 15; i++) {
-        data.push({
-          key: i,
-          label: `备选项 ${i}`,
-          disabled: i % 4 === 0
-        })
-      }
-      return data
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
- .transfer{
-   text-align: center;
-   height: 75px;
- }
- .el-transfer  {
- display: flex;
+.spots-container{
+  flex-direction: column;
+}
+.route{
+  height: 75px;
+  width: 70px;
+  border:1px solid #EBEEF5;
+}
+.transfer {
+  //text-align: center;
+  height: 75px;
+}
+
+/deep/ .el-transfer {
+  display: block;
+}
+
+/deep/ .el-transfer-panel {
+  width: 350px;
+  height: 380px;
 
 }
-/deep/ .el-transfer-panel{
-   width: 180px;
-   height: 500px;
 
- }
+/deep/ .el-transfer__buttons {
+  display: none;
+}
 
 /deep/ .el-transfer-panel .el-transfer-panel__footer {
-    height: 80px;
-    background: #FFF;
-    margin: 0;
-    // padding: 0;
-    border-top: 1px solid #EBEEF5;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1;
+  height: 80px;
+  background: #FFF;
+  margin: 0;
+  // padding: 0;
+  border-top: 1px solid #EBEEF5;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
 }
 </style>

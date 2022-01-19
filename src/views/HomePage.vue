@@ -1,58 +1,44 @@
 <template>
-  <div class='home'>
+  <div class='container'>
     <div class='header'>
-      <div class='u'>
-        <a class="toindex" href="/">设置</a>
-      </div>
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="首页" name="first"></el-tab-pane>
-        <el-tab-pane label="评论" name="second"></el-tab-pane>
-        <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-        <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
-      </el-tabs>
+      <el-menu
+        :unique-opened='true'
+        class='el-menu-demo mo'
+        mode='horizontal'
+        background-color='#026DC8'
+        text-color='#fff'
+        menu-trigger='hover'
+        active-text-color='#ffd04b'
+        :router='true'
+      >
+        <el-menu-item index="routes">路线选择</el-menu-item>
+        <el-menu-item index="spots">地点选择</el-menu-item>
+        <el-menu-item index="comments">评论</el-menu-item>
+        <el-menu-item index="weather">天气</el-menu-item>
+      </el-menu>
     </div>
-    <div class='container'>
-      <div class='content'>
-        <div v-if='flag=="first"'>
-          <main-page/>
-        </div>
-        <div v-if='flag == "second"'>
-          <comment-page/>
-        </div>
-      </div>
-      <div class='footer'>
-        <a class="toinfo" href="/">AboutUs</a>
-      </div>
+    <div class='main'>
+      <router-view/>
     </div>
+<!--    <div class='footer'>-->
+<!--      <a class="toinfo" href="/">AboutUs</a>-->
+<!--    </div>-->
   </div>
 </template>
 
 <script>
-import MainPage from '@/views/MainPage'
-import CommentPage from '@/views/CommentPage'
-
 export default {
   data () {
-    return {
-      flag: 'first'
-    }
+    return {}
   },
-  components: {
-    MainPage,
-    CommentPage
-  },
-  methods: {
-    handleClick (tab) {
-      this.flag = tab.name
-    }
-  }
+  methods: {}
 }
 
 </script>
 <style lang="scss" scoped>
 .header {
   position: fixed;
-  height: 75px;
+  height: 50px;
   background-color: rgb(255, 255, 255);
   color: #000;
   top: 0;
@@ -60,30 +46,20 @@ export default {
   width: 100%;
   line-height: 80px;
   z-index: 100;
-  .u {
-    z-index: 301;
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin: 21px 20px 5px 0;
-    padding: 0;
-  }
-
-  .toinfo {
-    text-align: center;
-  }
+  flex-direction: row;
 }
 
-.container {
+.main {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  margin-top: 90px;
   width: 100vw;
+  overflow: hidden;
+  margin: 80px 5vw 0 5vw;
 }
 
-.home {
-  display: flex;
+.container {
+  flex-direction: column;
   justify-content: space-between;
 
 }
@@ -98,12 +74,7 @@ export default {
   background: #111111;
 }
 
-.content {
-  display: flex;
-  overflow: hidden;
-  margin: 0 5vw 0 5vw;
-}
-/deep/ .el-tabs__nav{
+/deep/ .el-tabs__nav {
   margin-left: 20px;
 }
 </style>

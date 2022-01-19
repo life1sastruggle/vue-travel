@@ -7,19 +7,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'homepage',
-      component: () => import('../views/Homepage.vue'),
-      meta: {
-        title: '首页'
-      }
-    },
-    {
-      path: '/comment',
-      name: 'comment',
-      component: () => import('../views/CommentPage.vue'),
-      meta: {
-        title: '评论'
-      }
+      redirect: '/routes',
+      component: () => import('../views/HomePage'),
+      children: [
+        {path: 'routes', component: () => import('../views/RoutesPage')},
+        {path: 'spots', component: () => import('../views/SpotsPage')},
+        {path: 'comments', component: () => import('../views/CommentsPage')},
+        {path: 'weather', component: () => import('../views/WeatherPage')}
+      ]
     }
   ]
 })

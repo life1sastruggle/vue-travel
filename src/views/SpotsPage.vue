@@ -6,6 +6,11 @@
       </div>
     </div>
     <div class='middle-div'>
+      <div class='middle-upper'>
+        <AMap/>
+      </div>
+      <div class='middle-lower'>
+      </div>
     </div>
     <div class='right-div'>
     </div>
@@ -13,13 +18,15 @@
 </template>
 <script>
 import selectSpots from '../components/selectSpots/index'
+import AMap from '../components/map/index'
 
 export default {
   data () {
     return {}
   },
   components: {
-    selectSpots
+    selectSpots,
+    AMap
   },
   methods: {}
 }
@@ -45,7 +52,21 @@ export default {
 .middle-div {
   height: 100vh;
   width: 40vw;
-  background: #e8d551
+  display: flex;
+  flex-direction: column;
+  //background: #e8d551;
+
+  .middle-upper {
+    //background: #EBEEF5;
+    height: 50vh;
+    width: 40vw;
+  }
+
+  .middle-lower {
+    height: 30vh;
+    width: 40vw;
+    background: blue;
+  }
 }
 
 </style>

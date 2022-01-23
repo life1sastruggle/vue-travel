@@ -52,6 +52,6 @@ export default {
 
 <style scoped>
 .routes-main {
-  height: 100vh;
+  height: 1000px;
 }
 </style>

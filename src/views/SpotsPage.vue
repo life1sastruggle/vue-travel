@@ -10,6 +10,9 @@
         <AMap/>
       </div>
       <div class='middle-lower'>
+<!--        <slider/>-->
+        <el-slider v-model="value">
+        </el-slider>
       </div>
     </div>
     <div class='right-div'>
@@ -19,6 +22,7 @@
 <script>
 import selectSpots from '../components/selectSpots/index'
 import AMap from '../components/map/index'
+import slider from '../components/slider/index'
 
 export default {
   data () {
@@ -26,7 +30,10 @@ export default {
   },
   components: {
     selectSpots,
-    AMap
+    AMap,
+    slider
+  },
+  created () {
   },
   methods: {}
 }
@@ -36,36 +43,39 @@ export default {
   display: flex;
   flex-direction: row;
   overflow: hidden;
+  justify-content: center;
+  position: relative;
+
 }
 
 .left-div {
-  height: 100vh;
-  width: 25vw;
+  height: 1000px;
+  width: 400px;
+  position: relative;
 }
 
 .right-div {
-  height: 100vh;
-  width: 25vw;
-  background: #035a17
+  height: 1000px;
+  width: 400px;
+  position: relative;
+
 }
 
 .middle-div {
-  height: 100vh;
-  width: 40vw;
+  height: 1000px;
+  width: 650px;
   display: flex;
   flex-direction: column;
-  //background: #e8d551;
 
   .middle-upper {
     //background: #EBEEF5;
-    height: 50vh;
-    width: 40vw;
+    height: 500px;
+    width: 400px;
   }
 
   .middle-lower {
-    height: 30vh;
-    width: 40vw;
-    background: blue;
+    height: 300px;
+    width: 400px;
   }
 }
 

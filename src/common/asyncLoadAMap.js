@@ -1,4 +1,4 @@
-export function loadMap () {
+export default async function loadMap () {
   const mp = new Promise(function (resolve, reject) {
     let hasLoaded1 = document.getElementById('amap')
     if (hasLoaded1) { // 只加载一次
@@ -22,7 +22,7 @@ export function loadMap () {
     }
     let script2 = document.createElement('script')
     script2.type = 'text/javascript'
-    script2.src = 'https://webapi.amap.com/ui/1.0/main.js'
+    script2.src = 'https://webapi.amap.com/ui/1.1/main.js'
     script2.id = 'amapUI'
     script2.onerror = reject
     script2.onload = function (su) {

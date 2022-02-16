@@ -13,7 +13,7 @@ import loadMap from '../../common/asyncLoadAMap'
         map: null,
       }
     },
-    created () {
+    mounted () {
       this.init_map()   // 页面加载，初始化 AMap。
     },
     methods: {
@@ -55,8 +55,10 @@ import loadMap from '../../common/asyncLoadAMap'
 
 <style scoped>
 #acontainer {
-  width: 600px;
+  width: 1000px;
   height: 450px;
+  top: 100px;
+
   /*background: #EBEEF5;*/
 }
 </style>

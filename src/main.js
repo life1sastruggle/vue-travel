@@ -4,17 +4,20 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
+import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css'
 import * as api from './common/api'
+import * as echarts from 'echarts';
+import {goPageTop} from './common/base'
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
-
-Vue.use(ElementUI)
+Vue.use(ElementUI, { locale })
 
 Vue.prototype.$api = api
-
+Vue.prototype.$echarts = echarts
+Vue.prototype.goPageTop = goPageTop;
 new Vue({
   el: '#app',
   router,

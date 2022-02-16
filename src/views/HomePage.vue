@@ -5,24 +5,26 @@
         :unique-opened='true'
         class='el-menu-demo mo'
         mode='horizontal'
-        background-color='#026DC8'
-        text-color='#fff'
+        background-color='#FFFFFF'
+        text-color='#000'
         menu-trigger='hover'
-        active-text-color='#ffd04b'
+        active-text-color='#008000'
         :router='true'
       >
-        <el-menu-item index="routes">路线选择</el-menu-item>
-        <el-menu-item index="spots">地点选择</el-menu-item>
-        <el-menu-item index="comments">评论</el-menu-item>
-        <el-menu-item index="weather">天气</el-menu-item>
+        <el-menu-item index="routes">Routes</el-menu-item>
+        <el-menu-item index="spots">Spots</el-menu-item>
+        <el-menu-item index="comments">Comments</el-menu-item>
+        <el-menu-item index="weather">Weather</el-menu-item>
       </el-menu>
     </div>
     <div class='main'>
-      <router-view/>
+      <keep-alive>
+        <router-view/>
+      </keep-alive>
     </div>
-<!--    <div class='footer'>-->
-<!--      <a class="toinfo" href="/">AboutUs</a>-->
-<!--    </div>-->
+    <!--    <div class='footer'>-->
+    <!--      <a class="toinfo" href="/">AboutUs</a>-->
+    <!--    </div>-->
   </div>
 </template>
 
@@ -36,42 +38,45 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-.header {
-  position: fixed;
-  height: 50px;
-  background-color: rgb(255, 255, 255);
-  color: #000;
-  top: 0;
-  left: 0;
-  width: 100%;
-  line-height: 80px;
-  z-index: 100;
-  flex-direction: row;
-}
 
-.main {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  width: 100vw;
-  overflow: hidden;
-  margin: 80px 5vw 0 5vw;
-}
 
 .container {
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+  margin: 0;
+  padding: 0;
 
-}
+  .header {
+    position: fixed;
+    height: 50px;
+    background-color: rgb(255, 255, 255);
+    color: #000;
+    top: 0;
+    left: 0;
+    right: 0;
+    line-height: 80px;
+    z-index: 100;
+    flex-direction: row;
+  }
 
-.footer {
-  text-align: left;
-  height: 82px;
-  width: 100%;
-  line-height: 42px;
-  border-top: none;
-  margin-top: 0;
-  background: #111111;
+  .main {
+    display: flex;
+    flex-direction: column;
+    //overflow: hidden;
+    //width: 1903px;
+    margin: 61px 5px 0 5px;
+  }
+
+  //.footer {
+  //  text-align: left;
+  //  height: 82px;
+  //  width: 100%;
+  //  line-height: 42px;
+  //  border-top: none;
+  //  margin-top: 0;
+  //  background: #111111;
+  //}
 }
 
 /deep/ .el-tabs__nav {

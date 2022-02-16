@@ -5,7 +5,7 @@ import router from '../router'
 
 axios.defaults.timeout = 50000 // 响应时间
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8' // 配置请求头
-axios.defaults.baseURL = '127.0.0.1:8001' // 配置接口地址
+axios.defaults.baseURL = '127.0.0.1:8000' // 配置接口地址
 
 // POST传参序列化(添加请求拦截器)
 axios.interceptors.request.use((config) => {
@@ -25,7 +25,6 @@ axios.interceptors.request.use((config) => {
 
 // 返回状态判断(添加响应拦截器)
 axios.interceptors.response.use((res) => {
-  // 对响应数据做些事
   if (!res.data.success) {
     return Promise.resolve(res)
   }
@@ -35,7 +34,6 @@ axios.interceptors.response.use((res) => {
   return Promise.reject(error)
 })
 
-// 返回一个Promise(发送post请求)
 export function fetchPost (url, param, noHeader) {
   console.log(param)
   var content = JSON.stringify(param)
@@ -68,7 +66,6 @@ export function fetchPost (url, param, noHeader) {
   })
 }
 
-// 返回一个Promise(发送put请求)
 export function fetchPut (url, param, noHeader) {
   var content = JSON.stringify(param)
   if (!content) {
@@ -78,16 +75,10 @@ export function fetchPut (url, param, noHeader) {
   url = url + '?content=' + encodeURIComponent(content)
 
   return new Promise((resolve, reject) => {
-    axios.put(url, {
-      params: param
-    }, {
-      // headers: headers
-    })
+    axios.put(url)
       .then(response => {
         if (response.data.code === 0) {
           resolve(response.data.data)
-        } else if (response.data.code === 9) { // 未登录
-          router.push('/')
         } else {
           console.log(response.data.message)
           // invokeError(response)
@@ -101,28 +92,15 @@ export function fetchPut (url, param, noHeader) {
   })
 }
 
-/// /返回一个Promise(发送get请求)
-export function fetchGet (url, param) {
-  var content = JSON.stringify(param)
-  if (!content) {
-    content = ''
-  }
-  // var headers = genHeaders(content)
-  if (content) {
-    url = url + '?content=' + encodeURIComponent(content)
-  }
+export function fetchGet (url, params) {
   return new Promise((resolve, reject) => {
     axios.get(url, {
       // headers: headers,
-      params: param
+      params: params
     })
       .then(response => {
         if (response.data.code === 0) {
-          resolve(response.data.data)
-        } else if (response.data.code === 9) { // 未登录
-          router.push('/')
-        } else if (response.data.code === 2) {
-          resolve(response.data.data)
+          resolve(response.data)
         } else {
           console.log(response.data.message)
           // invokeError(response)
@@ -137,13 +115,7 @@ export function fetchGet (url, param) {
 }
 
 /// /返回一个Promise(发送delete请求)
-export function fetchDelete (url, param) {
-  var content = JSON.stringify(param)
-  if (!content) {
-    content = ''
-  }
-  // var headers = genHeaders(content)
-  url = url + '?content=' + encodeURIComponent(content)
+export function fetchDelete (url) {
 
   return new Promise((resolve, reject) => {
     axios.delete(url, {
@@ -153,8 +125,6 @@ export function fetchDelete (url, param) {
       .then(response => {
         if (response.data.code === 0) {
           resolve(response.data.data)
-        } else if (response.data.code === 9) { // 未登录
-          router.push('/')
         } else {
           console.log(response.data.message)
           // invokeError(response)
@@ -167,51 +137,6 @@ export function fetchDelete (url, param) {
       })
   })
 }
-
-// export function phpPost (url, param) {
-//   var content = ''
-//   var ctrl_center_id = localStorage.getItem('unitId')
-//   if (param) {
-//     if (!param.content.obj.ctrl_center_id) {
-//       param.content.obj.ctrl_center_id = ctrl_center_id
-//     }
-//   } else {
-//     param = {
-//       content: {
-//         obj: {
-//           ctrl_center_id: ctrl_center_id
-//         }
-//       }
-//     }
-//   }
-//   content = JSON.stringify(param)
-//   var headers = {}
-//   headers = {
-//     pcToken: localStorage.getItem('pcToken')
-//   }
-//   return new Promise((resolve, reject) => {
-//     axios.post(url, {
-//       content: content
-//     }, {
-//       headers: headers
-//     })
-//       .then(response => {
-//         if (response.data.code === 0) {
-//           resolve(response.data.data)
-//         } else if (response.data.code === 9) { // 未登录
-//           router.push('/')
-//         } else {
-//           console.log(response.data.message)
-//           invokeError(response)
-//         }
-//       }, err => {
-//         reject(err)
-//       })
-//       .catch((error) => {
-//         reject(error)
-//       })
-//   })
-// }
 
 // function genHeaders (content) {
 //   var pcToken = localStorage.getItem('pcToken')

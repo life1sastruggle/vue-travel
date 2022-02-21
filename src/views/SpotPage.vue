@@ -52,27 +52,25 @@ export default {
   flex-direction: row;
   overflow: hidden;
   justify-content: center;
-  right: 0;
 
   .main-left {
-    height: 800px;
-    width: 400px;
+    width: 200px;
 
     .select-pane {
       height: 1000px;
-      width: 400px;
+      width: 200px;
     }
   }
 
   .main-right {
     height: 800px;
-    width: 1050px;
+    width: 1600px;
 
-    .component-map {
-      height: 700px;
-      width: 1500px;
-      display: flex;
-    }
+    //.component-map {
+    //  height: 700px;
+    //  width: 1500px;
+    //  display: flex;
+    //}
 
     .right-bottom {
       height: 500px;

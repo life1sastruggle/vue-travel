@@ -1,7 +1,8 @@
 <template>
   <div class="main-col">
-    <div v-for="(item,i) in routes" class="list_product_box" :key=i @click="handleClick">
-      <div class="list_product_item_border">
+    <div v-for="(item,i) in routes" class="list_product_box" :key=i>
+      <div class="list_product_item_border" :class="{'click':i === isActive}"
+           @mouseenter="mouseenter(i)" @mouseleave="mouseleave" @click="handleClick(item.id)">
         <div class="list_product_item">
           <div class="list_product_left">
             <img class="list_product_pic"
@@ -23,12 +24,6 @@
                       <strong>{{ item.score }}</strong>分</p>
                   </div>
                 </div>
-                <el-collapse v-model="item.name">
-                  <el-collapse-item title="Comments" name="1">
-                    <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
-                    <div><a href="/comments">More Comments</a></div>
-                  </el-collapse-item>
-                </el-collapse>
               </div>
               <div class="list_sr_price_box basefix">
                 <div class="list_sr_price"><dfn>￥</dfn><strong>{{ item.price }}</strong>起</div>
@@ -44,6 +39,14 @@
           </div>
           <div class="goto"></div>
         </div>
+      </div>
+      <div class="comment">
+        <el-collapse v-model="item.name">
+          <el-collapse-item title="Comments" name="1">
+            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            <div><a href="/comments">More Comments</a></div>
+          </el-collapse-item>
+        </el-collapse>
       </div>
     </div>
     <el-pagination
@@ -62,7 +65,7 @@
 </template>
 
 <script>
-import {getRoutes} from '../../common/api'
+import {getRoutes, getRouteSpotMapping} from '../../common/api'
 import {goPageTop} from '../../common/base'
 
 export default {
@@ -76,6 +79,10 @@ export default {
       params: {
         page: 1
       },
+      routeSpotParams: {
+        route_id: 0
+      },
+      isActive: ''
     }
   },
   computed: {
@@ -94,6 +101,7 @@ export default {
         this.routes = []
         for (let i = 0; i <= res.length; i++) {
           this.routes.push({
+            id: res[i].id,
             name: res[i].name,
             picUrl: res[i].picUrl,
             score: res[i].score,
@@ -109,8 +117,12 @@ export default {
       this.getData()
       goPageTop('#main-col')
     },
-    handleClick () {
-
+    handleClick (id) {
+      this.routeSpotParams.route_id = id
+      getRouteSpotMapping(this.routeSpotParams, data => {
+        let res = data.data
+        this.$router.push('/spot')
+      })
     },
     handleCurrentChange (val) {
       this.params.page = val
@@ -122,6 +134,13 @@ export default {
       this.getData()
       goPageTop('#main-col')
     },
+    mouseleave () {
+      this.isActive = ''
+    },
+    mouseenter (index) {
+      this.isActive = index
+
+    }
   },
   mounted () {
     this.getData()
@@ -132,7 +151,7 @@ export default {
 <style scoped>
 
 .list_product_box {
-  padding: 0 16px 0 16px;
+  /*padding: 0 16px 0 16px;*/
   margin-bottom: 16px;
   background: #DCE8C9F0;
   border-radius: 4px;
@@ -141,7 +160,8 @@ export default {
 
 .list_product_item_border {
   padding: 16px 0 16px 0;
-  border: solid 1px #000000;
+  margin-bottom: 5px;
+  /*border: solid 1px #000000;*/
 }
 
 .list_product_item {
@@ -168,10 +188,15 @@ export default {
   display: flex;
   flex-direction: column;
   width: 800px;
+  margin-top: 5px;
 }
 
 /deep/ .el-collapse-item__header {
-  background: #DCE8C9F0;
+  background: rgba(220, 232, 201, 0.94);
+}
+
+.click {
+  box-shadow: 0px 0px 10px #909487F0
 }
 
 </style>

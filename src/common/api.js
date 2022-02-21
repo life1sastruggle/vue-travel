@@ -6,13 +6,17 @@ export function getSpots (obj, res) {
 }
 
 export function getRoutes (params, res) {
-  https.fetchGet(host + 'routes/',params).then(res)
+  https.fetchGet(host + 'route/',params).then(res)
+}
+
+export function getRouteSpotMapping (params, res) {
+  https.fetchPost(host + 'route_spot/', params).then(res)
 }
 
 export function getComments (res) {
-  https.fetchGet(host + 'comments/').then(res)
+  https.fetchGet(host + 'comment/').then(res)
 }
 
 export function getComment (res) {
-  https.fetchGet(host + 'comments/').then(res)
+  https.fetchGet(host + 'comment/').then(res)
 }

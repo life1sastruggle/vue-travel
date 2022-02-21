@@ -7,12 +7,12 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/routes',
+      redirect: '/route',
       component: () => import('../views/HomePage'),
       children: [
-        {path: 'routes', component: () => import('../views/RoutesPage')},
-        {path: 'spots', component: () => import('../views/SpotsPage')},
-        {path: 'comments', component: () => import('../views/CommentsPage')},
+        {path: 'route', component: () => import('../views/RoutePage')},
+        {path: 'spot', component: () => import('../views/SpotPage')},
+        {path: 'comment', component: () => import('../views/CommentPage')},
         {path: 'weather', component: () => import('../views/WeatherPage')}
       ]
     }

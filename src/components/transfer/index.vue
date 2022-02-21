@@ -1,9 +1,7 @@
 <template>
   <div class='spots-container'>
-  <div class='route'>
-  </div>
   <div class='transfer'>
-    <p style="text-align: center; margin: 0 0 10px; background:#EBEEF5FF">选择你的目标景点</p>
+    <p class='title'>Spots</p>
     <el-transfer
       filterable
       :data="spots"
@@ -17,8 +15,8 @@
       <!--      <el-checkbox-group v-model:="spots">-->
       <!--&lt;!&ndash;        <el-checkbox-button  v-for="(spot,i) in spots" :label="spot" :key="i">{{ spot }}</el-checkbox-button>&ndash;&gt;-->
       <!--      </el-checkbox-group>-->
-      <el-button class="transfer-footer " slot="left-footer" size="small">确定</el-button>
-      <el-button class="transfer-footer" slot="right-footer" size="small">取消</el-button>
+      <el-button class="transfer-footer " slot="left-footer" size="small">ok</el-button>
+      <el-button class="transfer-footer" slot="right-footer" size="small">cancel</el-button>
     </el-transfer>
   </div>
   </div>
@@ -73,6 +71,12 @@ export default {
 .transfer {
   //text-align: center;
   height: 75px;
+  .title{
+    text-align: center;
+    margin: 0 0 10px;
+    background:#EBEEF5FF;
+    width: 180px;
+  }
 }
 
 /deep/ .el-transfer {
@@ -80,9 +84,9 @@ export default {
 }
 
 /deep/ .el-transfer-panel {
-  width: 350px;
-  height: 380px;
-
+  width: 180px;
+  height: 400px;
+  background: #FFF7C0CC;
 }
 
 /deep/ .el-transfer__buttons {

@@ -8,7 +8,7 @@ Vue.use(Vuex);
 
 const state = {
   sourceSpot: new Map(),
-  targetSpot: new Map(),
+  targetSpot: [],
   selectedSpot: '',
 }
 export default new Vuex.Store({

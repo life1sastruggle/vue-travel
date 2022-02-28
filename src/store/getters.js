@@ -1,9 +1,9 @@
 export default {
   getSourceSpot(state){
-    return state.sourceSpot
+    return Array.from(state.sourceSpot.values())
   },
   getTargetSpot(state){
-    return state.targetSpot
+  return Array.from(state.targetSpot.values())
   },
   getSelectedSpot(state){
     return state.selectedSpot

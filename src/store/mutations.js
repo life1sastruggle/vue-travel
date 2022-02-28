@@ -7,7 +7,7 @@ const SET_SELECTED_SPOT = 'SET_SELECTED_SPOT'
 export default {
   [ADD_SOURCE_SPOT] (state, {spotArray}) {
     spotArray.forEach((item) => {
-      state.sourceSpot.delete(item.key)
+      state.sourceSpot.set(item.id, item)
     })
   },
   [REDUCE_SOURCE_SPOT] (state, {spotArray}) {
@@ -17,7 +17,7 @@ export default {
   },
   [ADD_TARGET_SPOT] (state, {spotArray}) {
     spotArray.forEach((item) => {
-      state.targetSpot.set(item.id, item)
+      state.targetSpot.push(item.id)
     })
   },
   [REDUCE_TARGET_SPOT] (state, {spotArray}) {

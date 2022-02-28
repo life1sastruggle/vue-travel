@@ -1,8 +1,8 @@
 import https from './https'
 import {host} from './config'
 
-export function getSpots (obj, res) {
-  https.fetchPost(host + 'list/', obj).then(res)
+export function getSpot (res) {
+  https.fetchGet(host + 'spot/').then(res)
 }
 
 export function getRoutes (params, res) {

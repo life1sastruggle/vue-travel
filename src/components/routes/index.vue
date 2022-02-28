@@ -122,8 +122,7 @@ export default {
     handleClick (id) {
       this.routeSpotParams.route_id = id
       getRouteSpotMapping(this.routeSpotParams, data => {
-        let res = data
-        this.ADD_TARGET_SPOT({spotArray: res})
+        this.ADD_TARGET_SPOT({spotArray: data})
         this.$router.push('/spot')
       })
     },

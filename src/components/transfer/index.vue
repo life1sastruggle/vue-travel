@@ -1,33 +1,36 @@
 <template>
   <div class='spots-container'>
-  <div class='transfer'>
-    <p class='title'>Spots</p>
-    <el-transfer
-      filterable
-      :data="spots"
-      :titles="['Source', 'Target']"
-      :format="{
+    <div class='transfer'>
+      <p class='title'>Spots</p>
+      <el-transfer
+        filterable
+        v-model="target"
+        :data="spot"
+        :titles="['Popular', 'Selected']"
+        :format="{
         noChecked: '${total}',
         hasChecked: '${checked}/${total}'
       }"
-      @change="handleChange"
-    >
-      <!--      <el-checkbox-group v-model:="spots">-->
-      <!--&lt;!&ndash;        <el-checkbox-button  v-for="(spot,i) in spots" :label="spot" :key="i">{{ spot }}</el-checkbox-button>&ndash;&gt;-->
-      <!--      </el-checkbox-group>-->
-      <el-button class="transfer-footer " slot="left-footer" size="small">ok</el-button>
-      <el-button class="transfer-footer" slot="right-footer" size="small">cancel</el-button>
-    </el-transfer>
-  </div>
+        @change="handleChange"
+      >
+        <!--      <el-checkbox-group v-model:="spots">-->
+        <!--&lt;!&ndash;        <el-checkbox-button  v-for="(spot,i) in spots" :label="spot" :key="i">{{ spot }}</el-checkbox-button>&ndash;&gt;-->
+        <!--      </el-checkbox-group>-->
+        <el-button class="transfer-footer " slot="left-footer" size="small" @click>Add</el-button>
+        <el-button class="transfer-footer" slot="right-footer" size="small" @click>Delete</el-button>
+      </el-transfer>
+    </div>
   </div>
 </template>
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
+import {getSpot} from '../../common/api'
+
 export default {
   data () {
     return {
-      value: [],
-      spots: generateData(),
+      target: [],
+      spot: [],
       renderFunc (h, option) {
         return <span>{option.key} - {option.label}</span>
       }
@@ -35,30 +38,49 @@ export default {
   },
 
   methods: {
-    ...mapGetters(['getTargetSpot']),
+    ...mapGetters(['getTargetSpot','getSourceSpot']),
+    ...mapMutations(['ADD_SOURCE_SPOT']),
     handleChange (value, direction, movedKeys) {
       console.log(value, direction, movedKeys)
+    },
+    getSource () {
+      getSpot(data => {
+        this.ADD_SOURCE_SPOT({spotArray: data.data})
+        this.spot = this.getSourceSpot().map((item) => {
+          return Object.assign({}, {'key': item.id, 'label': item.name})
+        })
+      })
+    },
+    getTarget () {
+      this.target = this.getTargetSpot()
     }
+  },
+  mounted () {
+    this.getSource()
+    this.getTarget()
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.spots-container{
+.spots-container {
   flex-direction: column;
 }
-.route{
+
+.route {
   height: 75px;
   width: 70px;
-  border:1px solid #EBEEF5;
+  border: 1px solid #EBEEF5;
 }
+
 .transfer {
   //text-align: center;
   height: 75px;
-  .title{
+
+  .title {
     text-align: center;
     margin: 0 0 10px;
-    background:#EBEEF5FF;
+    background: #EBEEF5FF;
     width: 180px;
   }
 }
@@ -71,6 +93,7 @@ export default {
   width: 180px;
   height: 400px;
   background: #FFF7C0CC;
+
 }
 
 /deep/ .el-transfer__buttons {
@@ -78,7 +101,7 @@ export default {
 }
 
 /deep/ .el-transfer-panel .el-transfer-panel__footer {
-  height: 80px;
+  height: 32px;
   background: #FFF;
   margin: 0;
   // padding: 0;

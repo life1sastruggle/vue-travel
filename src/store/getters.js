@@ -3,7 +3,7 @@ export default {
     return Array.from(state.sourceSpot.values())
   },
   getTargetSpot(state){
-  return Array.from(state.targetSpot.values())
+  return state.targetSpot
   },
   getSelectedSpot(state){
     return state.selectedSpot

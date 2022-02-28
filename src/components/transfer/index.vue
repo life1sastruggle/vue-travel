@@ -9,15 +9,11 @@
         :titles="['Popular', 'Selected']"
         :format="{
         noChecked: '${total}',
-        hasChecked: '${checked}/${total}'
+        hasChecked: '${total}'
       }"
-        @change="handleChange"
+        @left-check-change="addSpot"
+        @right-check-change="deleteSpot"
       >
-        <!--      <el-checkbox-group v-model:="spots">-->
-        <!--&lt;!&ndash;        <el-checkbox-button  v-for="(spot,i) in spots" :label="spot" :key="i">{{ spot }}</el-checkbox-button>&ndash;&gt;-->
-        <!--      </el-checkbox-group>-->
-        <el-button class="transfer-footer " slot="left-footer" size="small" @click>Add</el-button>
-        <el-button class="transfer-footer" slot="right-footer" size="small" @click>Delete</el-button>
       </el-transfer>
     </div>
   </div>
@@ -38,8 +34,8 @@ export default {
   },
 
   methods: {
-    ...mapGetters(['getTargetSpot','getSourceSpot']),
-    ...mapMutations(['ADD_SOURCE_SPOT']),
+    ...mapGetters(['getTargetSpot', 'getSourceSpot']),
+    ...mapMutations(['ADD_SOURCE_SPOT', 'ADD_TARGET_SPOT', 'ADD_TARGET_SPOT_ID','REDUCE_TARGET_SPOT']),
     handleChange (value, direction, movedKeys) {
       console.log(value, direction, movedKeys)
     },
@@ -52,6 +48,15 @@ export default {
       })
     },
     getTarget () {
+      this.target = this.getTargetSpot()
+    },
+    addSpot (key) {
+      this.ADD_TARGET_SPOT_ID({spotArray: key})
+      this.target = this.getTargetSpot()
+
+    },
+    deleteSpot (key) {
+      this.REDUCE_TARGET_SPOT({spotArray: key})
       this.target = this.getTargetSpot()
     }
   },
@@ -93,9 +98,10 @@ export default {
   width: 180px;
   height: 400px;
   background: #FFF7C0CC;
-
+  .el-checkbox__inner{
+    display: none;
+  }
 }
-
 /deep/ .el-transfer__buttons {
   display: none;
 }

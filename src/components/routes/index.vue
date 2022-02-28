@@ -67,6 +67,7 @@
 <script>
 import {getRoutes, getRouteSpotMapping} from '../../common/api'
 import {goPageTop} from '../../common/base'
+import {mapMutations} from 'vuex'
 
 export default {
   name: 'index',
@@ -94,6 +95,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['ADD_TARGET_SPOT']),
     getData () {
       getRoutes(this.params, data => {
         this.total = data.total
@@ -120,7 +122,8 @@ export default {
     handleClick (id) {
       this.routeSpotParams.route_id = id
       getRouteSpotMapping(this.routeSpotParams, data => {
-        let res = data.data
+        let res = data
+        this.ADD_TARGET_SPOT({spotArray: res})
         this.$router.push('/spot')
       })
     },

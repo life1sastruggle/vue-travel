@@ -3,34 +3,30 @@ import axios from 'axios'
 // import md5 from 'js-md5'
 import router from '../router'
 
-axios.defaults.timeout = 50000 // 响应时间
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8' // 配置请求头
-axios.defaults.baseURL = '127.0.0.1:8000' // 配置接口地址
+axios.defaults.timeout = 50000
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
+axios.defaults.baseURL = '127.0.0.1:8000'
 
-// POST传参序列化(添加请求拦截器)
 axios.interceptors.request.use((config) => {
-  // 在发送请求之前做某件事
-  // if (config.method === 'post') {
+  // if (config.method === 'post') {`
   //   config.data = qs.stringify(config.data)
   // }
   config.headers['X-Requested-With'] = 'XMLHttpRequest'
-  // 用于从cookie中匹配 csrftoken值
   let regex = /.*csrftoken=([^;.]*).*$/
   config.headers['X-CSRFToken'] = document.cookie.match(regex) === null ? null : document.cookie.match(regex)[1]
   return config
 }, (error) => {
-  console.log('错误的传参')
+  console.log('Wrong parameter')
   return Promise.reject(error)
 })
 
-// 返回状态判断(添加响应拦截器)
 axios.interceptors.response.use((res) => {
   if (!res.data.success) {
     return Promise.resolve(res)
   }
   return res
 }, (error) => {
-  console.log('网络异常')
+  console.log('Network exception')
   return Promise.reject(error)
 })
 
@@ -114,7 +110,6 @@ export function fetchGet (url, params) {
   })
 }
 
-/// /返回一个Promise(发送delete请求)
 export function fetchDelete (url) {
 
   return new Promise((resolve, reject) => {
@@ -163,10 +158,10 @@ window.gg.router = router
 //         gg.router.app.$message.error(response.data.message)
 //       }
 //     } else {
-//       gg.router.app.$message.error('服务器异常')
+//       gg.router.app.$message.error('Server exception')
 //     }
 //   } else {
-//     console.log('$message 异常')
+//     console.log('$Message exception')
 //   }
 // }
 

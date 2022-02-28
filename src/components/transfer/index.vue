@@ -22,24 +22,7 @@
   </div>
 </template>
 <script>
-import {getSpots} from '../../common/api.js'
-
-const generateData = () => {
-  const spots = []
-  let p3 = []
-  const obj = {'keywords': '公园'}
-  getSpots(obj, (data) => {
-    p3 = data
-    for (let i = 0; i <= p3.length; i++) {
-      spots.push({
-        key: i,
-        label: `${p3[i].title}`,
-        disabled: false
-      })
-    }
-  })
-  return spots
-}
+import {mapGetters} from 'vuex'
 export default {
   data () {
     return {
@@ -52,6 +35,7 @@ export default {
   },
 
   methods: {
+    ...mapGetters(['getTargetSpot']),
     handleChange (value, direction, movedKeys) {
       console.log(value, direction, movedKeys)
     }

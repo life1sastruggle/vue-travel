@@ -95,7 +95,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['ADD_TARGET_SPOT']),
+    ...mapMutations(['ADD_ROUTE_TARGET_SPOT']),
     getData () {
       getRoutes(this.params, data => {
         this.total = data.total
@@ -122,7 +122,7 @@ export default {
     handleClick (id) {
       this.routeSpotParams.route_id = id
       getRouteSpotMapping(this.routeSpotParams, data => {
-        this.ADD_TARGET_SPOT({spotArray: data})
+        this.ADD_ROUTE_TARGET_SPOT({spotArray: data})
         this.$router.push('/spot')
       })
     },

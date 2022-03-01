@@ -5,12 +5,14 @@
 
 <script>
 import loadMap from '../../common/asyncLoadAMap'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'Home',
   data () {
     return {
       map: null,
+      waypoints: [],
     }
   },
   mounted () {
@@ -18,6 +20,7 @@ export default {
     this.init_map()
   },
   methods: {
+    ...mapGetters(['getTargetSpot']),
     init_map () {
       let that = this
       loadMap('314e8e673dd5048df671828de7a9267a').then(([AMap, mpUI]) => {
@@ -27,7 +30,7 @@ export default {
           resizeEnable: true,
           dragEnable: true
         })
-        AMap.plugin(['AMap.Geolocation', 'AMap.Weather'], function () {
+        AMap.plugin(['AMap.Geolocation', 'AMap.Weather', 'AMap.Driving'], function () {
           var geolocation = new AMap.Geolocation({
             enableHighAccuracy: true,
             timeout: 10000,
@@ -38,7 +41,7 @@ export default {
             //定位成功后是否自动调整地图视野到定位点
             // zoomToAccuracy: true,
           })
-          that.map.addControl(geolocation)
+          // that.map.addControl(geolocation)
           geolocation.getCurrentPosition()
           AMap.event.addListener(geolocation, 'complete', onComplete)
           AMap.event.addListener(geolocation, 'error', onError)
@@ -51,16 +54,37 @@ export default {
           })
 
           function onComplete (data) {
-            // data是具体的定位信息
-            console.log(data)
+            //Route planning
+            var drivingOption = {
+              policy: AMap.DrivingPolicy.LEAST_TIME,
+              map: that.map,
+            }
+            var location = data.position
+            var end = new AMap.LngLat('120.1212810','30.1212810')
+            var opts = {waypoints: that.getTargetSpotLngLat()}
+            var driving = new AMap.Driving(drivingOption)
+            driving.search(location, end, opts, function (status, result) {
+              if (status === 'complete') {
+                log.success('Drawing driving route completed')
+              } else {
+                log.error('Failed to obtain driving data：' + result)
+              }
+            })
           }
 
-          // 定位出错
+          //Positioning error
           function onError (data) {
           }
+
         })
       })
-    }
+    }, getTargetSpotLngLat () {
+      let res = []
+      this.getTargetSpot().map((item) => {
+         res.push(new AMap.LngLat(item.longitude, item.latitude))
+      })
+      return res;
+    },
   },
 }
 </script>
@@ -71,4 +95,5 @@ export default {
   height: 860px;
   border: solid 1px #77e851;
 }
+
 </style>

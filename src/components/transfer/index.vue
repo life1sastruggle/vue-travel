@@ -32,8 +32,8 @@ export default {
   },
 
   methods: {
-    ...mapGetters(['getTargetSpot', 'getSourceSpot']),
-    ...mapMutations(['ADD_SOURCE_SPOT', 'ADD_TARGET_SPOT', 'ADD_TARGET_SPOT_ID', 'REDUCE_TARGET_SPOT']),
+    ...mapGetters(['getTargetSpotId', 'getSourceSpot']),
+    ...mapMutations(['ADD_SOURCE_SPOT', 'ADD_TARGET_SPOT', 'REDUCE_TARGET_SPOT']),
     handleChange (value, direction, movedKeys) {
       console.log(value, direction, movedKeys)
     },
@@ -46,16 +46,15 @@ export default {
       })
     },
     getTarget () {
-      this.target = this.getTargetSpot()
+      this.target = this.getTargetSpotId()
     },
     addSpot (key) {
-      this.ADD_TARGET_SPOT_ID({spotArray: key})
-      this.target = this.getTargetSpot()
-
+      this.ADD_TARGET_SPOT({spotArray: key})
+      this.target = this.getTargetSpotId()
     },
     deleteSpot (key) {
       this.REDUCE_TARGET_SPOT({spotArray: key})
-      this.target = this.getTargetSpot()
+      this.target = this.getTargetSpotId()
     }
   },
   mounted () {

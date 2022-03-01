@@ -67,8 +67,8 @@ export default {
 
 <style scoped>
 #container {
-  width: 1200px;
-  height: 870px;
+  width: 1100px;
+  height: 860px;
   border: solid 1px #77e851;
 }
 </style>

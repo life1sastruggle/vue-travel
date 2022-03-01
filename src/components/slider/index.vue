@@ -1,20 +1,23 @@
 <template>
 <div class = 'slider'>
-  <span class="demonstration">Price</span>
-  <el-slider v-model="value">
+  <div class = 'inner'>
+    <span class="demonstration">Price</span>
+    <el-slider v-model="value">
   </el-slider>
-  <span class="demonstration">Environment</span>
-  <el-slider v-model="value">
-  </el-slider>
-  <span class="demonstration">Trends</span>
-  <el-slider v-model="value">
-  </el-slider>
-  <span class="demonstration">Comment</span>
-  <el-slider v-model="value">
-  </el-slider>
-  <span class="demonstration">Distance</span>
-  <el-slider v-model="value">
-  </el-slider>
+    <span class="demonstration">Environment</span>
+    <el-slider v-model="value">
+    </el-slider>
+    <span class="demonstration">Trends</span>
+    <el-slider v-model="value">
+    </el-slider>
+    <span class="demonstration">Comment</span>
+    <el-slider v-model="value">
+    </el-slider>
+    <span class="demonstration">Distance</span>
+    <el-slider v-model="value">
+    </el-slider>
+  </div>
+
 </div>
 </template>
 
@@ -35,5 +38,12 @@ export default {
   }
   span{
     font-size: 11px;
+
   }
+  .inner{
+    width: 350px;
+    margin-left: 20px;
+
+  }
+
 </style>

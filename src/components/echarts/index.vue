@@ -78,7 +78,7 @@ export default {
 <style scoped>
 .radar {
   width: 400px;
-  height: 370px;
+  height: 360px;
   background: #c8f3b3;
 }
 </style>

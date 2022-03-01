@@ -75,7 +75,7 @@ export default {
   text-align: center;
   margin: 0 0 10px;
   background: #EBEEF5FF;
-  width: 320px;
+  width: 300px;
 }
 
 /deep/ .el-transfer {
@@ -83,7 +83,7 @@ export default {
 }
 
 /deep/ .el-transfer-panel {
-  width: 160px;
+  width: 150px;
   height: 419px;
   background: #FFF7C0CC;
 

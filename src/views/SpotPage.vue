@@ -1,7 +1,8 @@
 <template>
   <div class='spots-main'>
     <div class='main-left'>
-        <select-spots/>
+        <transfer/>
+        <comment/>
     </div>
     <div class="main-center">
         <AMap/>
@@ -14,7 +15,8 @@
   </div>
 </template>
 <script>
-import selectSpots from '../components/transfer/index'
+import transfer from '../components/transfer/index'
+import comment from '../components/comment/index'
 import AMap from '../components/map/index'
 import slider from '../components/slider/index'
 import radar from '../components/echarts/index'
@@ -25,7 +27,8 @@ export default {
     return {}
   },
   components: {
-    selectSpots,
+    transfer,
+    comment,
     AMap,
     slider,
     radar,
@@ -42,14 +45,19 @@ export default {
   flex-direction: row;
   overflow: hidden;
   justify-content: center;
-
   .main-right {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     border: solid 1px #77e851;
+    margin: 5px;
   }
-
+  .main-center{
+    margin: 5px;
+  }
+  .main-left{
+    margin: 5px;
+  }
 }
 
 </style>

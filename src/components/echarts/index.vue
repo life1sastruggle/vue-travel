@@ -16,13 +16,15 @@ export default {
       this.chart.setOption({
         tooltip: {
           trigger: 'axis',
-          axisPointer: { // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+          // 坐标轴指示器，坐标轴触发有效
+          axisPointer: {
+            // 默认为直线，可选为：'line' | 'shadow'
+            type: 'shadow'
           }
         },
         radar: {
           radius: '66%',
-          center: ['50%', '42%'],
+          center: ['50%', '50%'],
           splitNumber: 8,
           splitArea: {
             areaStyle: {
@@ -35,18 +37,17 @@ export default {
             }
           },
           indicator: [
-            {name: 'Sales', max: 10000},
-            {name: 'Administration', max: 20000},
-            {name: 'Information Technology', max: 20000},
-            {name: 'Customer Support', max: 20000},
-            {name: 'Development', max: 20000},
-            {name: 'Marketing', max: 20000}
+            {name: 'Price', max: 10000},
+            {name: 'Environment', max: 20000},
+            {name: 'Distance', max: 20000},
+            {name: 'Trends', max: 20000},
+            {name: 'Comment', max: 20000}
           ]
         },
         legend: {
-          left: 'center',
-          bottom: '10',
-          data: ['Allocated Budget', 'Expected Spending', 'Actual Spending']
+          right: 'center',
+          bottom: '5',
+          data: ['Actual Spending']
         },
         series: [{
           type: 'radar',
@@ -76,7 +77,8 @@ export default {
 
 <style scoped>
 .radar {
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 370px;
+  background: #c8f3b3;
 }
 </style>

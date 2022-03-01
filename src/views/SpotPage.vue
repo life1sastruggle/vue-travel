@@ -1,25 +1,15 @@
 <template>
   <div class='spots-main'>
     <div class='main-left'>
-      <div class='select-pane'>
         <select-spots/>
-      </div>
+    </div>
+    <div class="main-center">
+        <AMap/>
     </div>
     <div class="main-right">
-      <div class='component-map'>
-        <AMap/>
-      </div>
-      <div class='right-bottom'>
-        <div class='component-slider'>
-          <slider/>
-        </div>
-        <div class='component-radar'>
-          <radar/>
-        </div>
-        <div class="component-weather">
-          <weather/>
-        </div>
-      </div>
+        <slider/>
+        <radar/>
+        <weather/>
     </div>
   </div>
 </template>
@@ -53,48 +43,13 @@ export default {
   overflow: hidden;
   justify-content: center;
 
-  .main-left {
-    width: 200px;
-
-    .select-pane {
-      height: 1000px;
-      width: 200px;
-    }
-  }
-
   .main-right {
-    height: 800px;
-    width: 1600px;
-
-    //.component-map {
-    //  height: 700px;
-    //  width: 1500px;
-    //  display: flex;
-    //}
-
-    .right-bottom {
-      height: 500px;
-      width: 1000px;
-      display: flex;
-      flex-direction: row;
-
-      .component-slider {
-        height: 300px;
-        width: 300px;
-      }
-
-      .component-radar {
-        height: 300px;
-        width: 300px;
-      }
-
-      .component-weather {
-        height: 300px;
-        width: 300px;
-      }
-
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: solid 1px #77e851;
   }
+
 }
 
 </style>

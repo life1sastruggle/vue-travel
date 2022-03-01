@@ -15,7 +15,7 @@
         <el-menu-item :index="item[0]">Route</el-menu-item>
         <el-menu-item :index="item[1]">Spot</el-menu-item>
         <el-menu-item :index="item[2]">Comment</el-menu-item>
-        <el-menu-item :index="item[3]">Weather</el-menu-item>
+<!--        <el-menu-item :index="item[3]">Weather</el-menu-item>-->
       </el-menu>
     </div>
     <div class='main'>

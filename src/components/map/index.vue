@@ -36,7 +36,7 @@ export default {
             //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
             buttonOffset: new AMap.Pixel(10, 20),
             //定位成功后是否自动调整地图视野到定位点
-            zoomToAccuracy: true,
+            // zoomToAccuracy: true,
           })
           that.map.addControl(geolocation)
           geolocation.getCurrentPosition()
@@ -67,8 +67,8 @@ export default {
 
 <style scoped>
 #container {
-  width: 1600px;
-  height: 700px;
+  width: 1200px;
+  height: 870px;
   border: solid 1px #77e851;
 }
 </style>

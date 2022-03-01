@@ -1,6 +1,18 @@
 <template>
-<div>
-  <span class="demonstration">默认</span>
+<div class = 'slider'>
+  <span class="demonstration">Price</span>
+  <el-slider v-model="value">
+  </el-slider>
+  <span class="demonstration">Environment</span>
+  <el-slider v-model="value">
+  </el-slider>
+  <span class="demonstration">Trends</span>
+  <el-slider v-model="value">
+  </el-slider>
+  <span class="demonstration">Comment</span>
+  <el-slider v-model="value">
+  </el-slider>
+  <span class="demonstration">Distance</span>
   <el-slider v-model="value">
   </el-slider>
 </div>
@@ -18,5 +30,10 @@ export default {
 </script>
 
 <style scoped>
-
+  .slider{
+    height: 300px
+  }
+  span{
+    font-size: 11px;
+  }
 </style>

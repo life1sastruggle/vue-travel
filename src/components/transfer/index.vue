@@ -1,21 +1,19 @@
 <template>
-  <div class='spots-container'>
-    <div class='transfer'>
-      <p class='title'>Spots</p>
-      <el-transfer
-        filterable
-        v-model="target"
-        :data="spot"
-        :titles="['Popular', 'Selected']"
-        :format="{
+  <div class='transfer'>
+    <p class='title'>Spots</p>
+    <el-transfer
+      filterable
+      v-model="target"
+      :data="spot"
+      :titles="['Popular', 'Selected']"
+      :format="{
         noChecked: '${total}',
         hasChecked: '${total}'
       }"
-        @left-check-change="addSpot"
-        @right-check-change="deleteSpot"
-      >
-      </el-transfer>
-    </div>
+      @left-check-change="addSpot"
+      @right-check-change="deleteSpot"
+    >
+    </el-transfer>
   </div>
 </template>
 <script>
@@ -35,7 +33,7 @@ export default {
 
   methods: {
     ...mapGetters(['getTargetSpot', 'getSourceSpot']),
-    ...mapMutations(['ADD_SOURCE_SPOT', 'ADD_TARGET_SPOT', 'ADD_TARGET_SPOT_ID','REDUCE_TARGET_SPOT']),
+    ...mapMutations(['ADD_SOURCE_SPOT', 'ADD_TARGET_SPOT', 'ADD_TARGET_SPOT_ID', 'REDUCE_TARGET_SPOT']),
     handleChange (value, direction, movedKeys) {
       console.log(value, direction, movedKeys)
     },
@@ -68,26 +66,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.spots-container {
-  flex-direction: column;
-}
-
-.route {
-  height: 75px;
-  width: 70px;
-  border: 1px solid #EBEEF5;
-}
-
 .transfer {
-  //text-align: center;
-  height: 75px;
+  flex-direction: row;
+  border: solid 1px #77e851;
+}
 
-  .title {
-    text-align: center;
-    margin: 0 0 10px;
-    background: #EBEEF5FF;
-    width: 180px;
-  }
+.title {
+  text-align: center;
+  margin: 0 0 10px;
+  background: #EBEEF5FF;
+  width: 320px;
 }
 
 /deep/ .el-transfer {
@@ -95,27 +83,29 @@ export default {
 }
 
 /deep/ .el-transfer-panel {
-  width: 180px;
-  height: 400px;
+  width: 160px;
+  height: 419px;
   background: #FFF7C0CC;
-  .el-checkbox__inner{
+
+  .el-checkbox__inner {
     display: none;
   }
-}
-/deep/ .el-transfer__buttons {
-  display: none;
+
+  .el-transfer-panel__footer {
+    height: 30px;
+    background: #FFF;
+    margin: 0;
+    // padding: 0;
+    border-top: 1px solid #EBEEF5;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  }
 }
 
-/deep/ .el-transfer-panel .el-transfer-panel__footer {
-  height: 32px;
-  background: #FFF;
-  margin: 0;
-  // padding: 0;
-  border-top: 1px solid #EBEEF5;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1;
+/deep/ .el-transfer__buttons {
+  display: none;
 }
 </style>

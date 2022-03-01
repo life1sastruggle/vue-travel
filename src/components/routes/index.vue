@@ -155,7 +155,7 @@ export default {
 .list_product_box {
   /*padding: 0 16px 0 16px;*/
   margin-bottom: 16px;
-  background: #DCE8C9F0;
+  background: #F5F0D3D1;
   border-radius: 4px;
   display: block;
 }
@@ -194,7 +194,7 @@ export default {
 }
 
 /deep/ .el-collapse-item__header {
-  background: rgba(220, 232, 201, 0.94);
+  background: #F5F0D3D1;
 }
 
 .click {

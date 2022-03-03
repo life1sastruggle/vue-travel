@@ -43,7 +43,7 @@ export default {
 .spots-main {
   display: flex;
   flex-direction: row;
-  overflow: hidden;
+  //overflow: hidden;
   justify-content: center;
   .main-right {
     display: flex;

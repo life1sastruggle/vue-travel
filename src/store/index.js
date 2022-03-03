@@ -9,7 +9,7 @@ const state = {
   sourceSpot: new Map(),
   targetSpot: new Map(),
   targetSpotId: [],
-  selectedSpot: '',
+  selectedSpot: null,
 }
 export default new Vuex.Store({
   state,

@@ -75,8 +75,6 @@ export default {
   data () {
     return {
       routes: [],
-      total: 0,
-      loading: false,
       params: {
         page: 1
       },
@@ -86,14 +84,7 @@ export default {
       isActive: ''
     }
   },
-  computed: {
-    noMore () {
-      return this.params.page >= 7
-    },
-    disabled () {
-      return this.loading || this.noMore
-    }
-  },
+
   methods: {
     ...mapMutations(['ADD_ROUTE_TARGET_SPOT']),
     getData () {

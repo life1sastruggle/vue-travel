@@ -92,7 +92,6 @@ export function fetchGet (url, params, id) {
   return new Promise((resolve, reject) => {
     if(id) {
       url = url + id
-      console.log("id",url)
     }
     axios.get(url, {
       // headers: headers,

@@ -37,7 +37,7 @@ export default {
     ...mapState(['targetSpotId', 'sourceSpot','targetSpot']),
   },
   methods: {
-    ...mapMutations(['ADD_SOURCE_SPOT', 'ADD_TARGET_SPOT', 'REDUCE_TARGET_SPOT']),
+    ...mapMutations(['ADD_SOURCE_SPOT', 'ADD_TARGET_SPOT', 'REDUCE_TARGET_SPOT','SET_SELECTED_SPOT']),
     handleChange (value, direction, movedKeys) {
       console.log(value, direction, movedKeys)
     },
@@ -48,6 +48,7 @@ export default {
         this.spot = Array.from(that.sourceSpot.values()).map((item) => {
           return Object.assign({}, {'key': item.id, 'label': item.name})
         })
+        util.$emit('initMap', 'msg')
       })
     },
     getTarget () {
@@ -56,6 +57,8 @@ export default {
     addSpot (key) {
       this.ADD_TARGET_SPOT({spotArray: key})
       this.target = this.targetSpotId
+      this.SET_SELECTED_SPOT({spot: key})
+      util.$emit('getComment', 'msg')
     },
     deleteSpot (key) {
       this.REDUCE_TARGET_SPOT({spotArray: key})
@@ -91,7 +94,7 @@ export default {
 
 /deep/ .el-transfer-panel {
   width: 150px;
-  height: 419px;
+  height: 399px;
   background: #FFF7C0CC;
 
   .el-checkbox__inner {

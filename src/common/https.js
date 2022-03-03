@@ -88,8 +88,12 @@ export function fetchPut (url, param, noHeader) {
   })
 }
 
-export function fetchGet (url, params) {
+export function fetchGet (url, params, id) {
   return new Promise((resolve, reject) => {
+    if(id) {
+      url = url + id
+      console.log("id",url)
+    }
     axios.get(url, {
       // headers: headers,
       params: params

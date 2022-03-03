@@ -31,6 +31,6 @@ export default {
     state.targetSpot.delete(spotArray[0])
   },
   [SET_SELECTED_SPOT] (state, {spot}) {
-    state.selectedSpot = spot
+    state.selectedSpot = state.sourceSpot.get(spot[0])
   }
 }

@@ -153,7 +153,6 @@ export default {
 <style scoped>
 
 .list_product_box {
-  /*padding: 0 16px 0 16px;*/
   margin-bottom: 16px;
   background: #F5F0D3D1;
   border-radius: 4px;
@@ -163,7 +162,6 @@ export default {
 .list_product_item_border {
   padding: 16px 0 16px 0;
   margin-bottom: 5px;
-  /*border: solid 1px #000000;*/
 }
 
 .list_product_item {

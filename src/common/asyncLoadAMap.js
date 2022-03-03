@@ -3,10 +3,10 @@ export default async function loadMap () {
     window._AMapSecurityConfig = {
       securityJsCode:'e0015c7b90f380053577dfdcd4445073',
     }
-    let hasLoaded1 = document.getElementById('amap')
-    if (hasLoaded1) {
-      return
-    }
+    // let hasLoaded1 = document.getElementById('amap')
+    // if (hasLoaded1) {
+    //   return
+    // }
     window.init = function () {
       resolve(window.AMap)
     }

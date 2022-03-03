@@ -47,7 +47,7 @@ export default {
         legend: {
           right: 'center',
           bottom: '5',
-          data: ['Actual Spending']
+          data: ['Spot Property']
         },
         series: [{
           type: 'radar',
@@ -64,7 +64,7 @@ export default {
           data: [
             {
               value: [5500, 11000, 12000, 15000, 12000, 12000],
-              name: 'Actual Spending'
+              name: 'Spot Property'
             }
           ],
           // animationDuration: animationDuration

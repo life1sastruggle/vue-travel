@@ -14,11 +14,14 @@
       @right-check-change="deleteSpot"
     >
     </el-transfer>
+    <el-button class="transfer-footer" slot="right-footer" size="small" @click="startPlanning">Start Planning
+    </el-button>
   </div>
 </template>
 <script>
-import {mapGetters, mapMutations} from 'vuex'
+import {mapState, mapMutations} from 'vuex'
 import {getSpot} from '../../common/api'
+import util from '../../common/util'
 
 export default {
   data () {
@@ -30,31 +33,36 @@ export default {
       }
     }
   },
-
+  computed:{
+    ...mapState(['targetSpotId', 'sourceSpot','targetSpot']),
+  },
   methods: {
-    ...mapGetters(['getTargetSpotId', 'getSourceSpot']),
     ...mapMutations(['ADD_SOURCE_SPOT', 'ADD_TARGET_SPOT', 'REDUCE_TARGET_SPOT']),
     handleChange (value, direction, movedKeys) {
       console.log(value, direction, movedKeys)
     },
     getSource () {
+      let that = this
       getSpot(data => {
         this.ADD_SOURCE_SPOT({spotArray: data.data})
-        this.spot = this.getSourceSpot().map((item) => {
+        this.spot = Array.from(that.sourceSpot.values()).map((item) => {
           return Object.assign({}, {'key': item.id, 'label': item.name})
         })
       })
     },
     getTarget () {
-      this.target = this.getTargetSpotId()
+      this.target = this.targetSpotId
     },
     addSpot (key) {
       this.ADD_TARGET_SPOT({spotArray: key})
-      this.target = this.getTargetSpotId()
+      this.target = this.targetSpotId
     },
     deleteSpot (key) {
       this.REDUCE_TARGET_SPOT({spotArray: key})
-      this.target = this.getTargetSpotId()
+      this.target = this.targetSpotId
+    },
+    startPlanning () {
+      util.$emit('initMap', 'msg')
     }
   },
   mounted () {

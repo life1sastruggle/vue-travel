@@ -5,7 +5,8 @@
 
 <script>
 import loadMap from '../../common/asyncLoadAMap'
-import {mapGetters} from 'vuex'
+import {mapState} from 'vuex'
+import util from '../../common/util'
 
 export default {
   name: 'Home',
@@ -13,22 +14,31 @@ export default {
     return {
       map: null,
       waypoints: [],
+      AMap: null
     }
   },
   mounted () {
-    // 页面加载，初始化 AMap
-    this.init_map()
+    this.initMap()
+    var that = this
+    util.$on('initMap', function (msg) {
+      console.log(msg)
+      that.initMap()
+    })
+  },
+  computed:{
+    ...mapState(['targetSpot','sourceSpot']),
   },
   methods: {
-    ...mapGetters(['getTargetSpot']),
-    init_map () {
+
+    initMap () {
       let that = this
       loadMap('314e8e673dd5048df671828de7a9267a').then(([AMap, mpUI]) => {
         that.map = new AMap.Map('container', {
           mapStyle: 'amap://styles/7e8dadf307af8b4a5da5a98e53fd2657',
           zoom: 10,
           resizeEnable: true,
-          dragEnable: true
+          dragEnable: true,
+          lang: 'en',
         })
         AMap.plugin(['AMap.Geolocation', 'AMap.Weather', 'AMap.Driving'], function () {
           var geolocation = new AMap.Geolocation({
@@ -42,16 +52,10 @@ export default {
             // zoomToAccuracy: true,
           })
           // that.map.addControl(geolocation)
+
           geolocation.getCurrentPosition()
           AMap.event.addListener(geolocation, 'complete', onComplete)
           AMap.event.addListener(geolocation, 'error', onError)
-
-          var weather = new AMap.Weather()
-
-          //执行实时天气信息查询
-          weather.getLive('杭州市', function (err, data) {
-            console.log(err, data)
-          })
 
           function onComplete (data) {
             //Route planning
@@ -59,11 +63,13 @@ export default {
               policy: AMap.DrivingPolicy.LEAST_TIME,
               map: that.map,
             }
-            var location = data.position
-            var end = new AMap.LngLat('120.1212810','30.1212810')
-            var opts = {waypoints: that.getTargetSpotLngLat()}
+            var points = [{keyword: data.formattedAddress, city: '杭州'}]
+            Array.from(that.targetSpot.values()).map((item) => {
+              points.push({'keyword': item.name, 'city': '杭州'})
+            })
+            console.log(points)
             var driving = new AMap.Driving(drivingOption)
-            driving.search(location, end, opts, function (status, result) {
+            driving.search(points, function (status, result) {
               if (status === 'complete') {
                 log.success('Drawing driving route completed')
               } else {
@@ -76,14 +82,12 @@ export default {
           function onError (data) {
           }
 
+          var weather = new AMap.Weather()
+          weather.getLive('杭州市', function (err, data) {
+            console.log(err, data)
+          })
         })
       })
-    }, getTargetSpotLngLat () {
-      let res = []
-      this.getTargetSpot().map((item) => {
-         res.push(new AMap.LngLat(item.longitude, item.latitude))
-      })
-      return res;
     },
   },
 }

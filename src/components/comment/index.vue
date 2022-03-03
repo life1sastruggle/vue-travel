@@ -15,8 +15,8 @@
            infinite-scroll-immediate="false"
       >
         <div v-for="(item,i) in comment" class="inner-comment-box" :key=i>
-            <p>{{ item.body }}</p>
-            <el-divider/>
+          <p>{{ item.body }}</p>
+          <el-divider/>
         </div>
         <p v-if="noMore">No more</p>
       </div>
@@ -27,8 +27,6 @@
 import {getComment} from '../../common/api'
 import {mapState} from 'vuex'
 import util from '../../common/util'
-import {goPageTop} from '../../common/base'
-import el from 'element-ui/src/locale/lang/el'
 
 export default {
   name: 'index',
@@ -40,7 +38,6 @@ export default {
       },
       total: 0,
       totalPage: 0,
-
     }
   },
   mounted () {
@@ -49,12 +46,10 @@ export default {
       that.param.page = 1
       that.totalPage = 0
       that.comment = []
-      that.test()
+      that.total = 0
       that.getComment()
-
     })
   },
-
 
   computed: {
     ...mapState(['selectedSpot']),
@@ -76,14 +71,10 @@ export default {
   },
   methods: {
     getComment () {
-
-      let that = this
       getComment(this.param, this.selectedSpot.id, res => {
         this.total = res.total
         this.comment = this.comment.concat(res.data)
-
       })
-      console.log()
     },
     load () {
       this.param.page += 1
@@ -115,10 +106,8 @@ export default {
         width: 250px;
         padding-left: 10px;
       }
-
     }
   }
-
 }
 
 </style>

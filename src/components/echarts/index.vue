@@ -79,6 +79,7 @@ export default {
 .radar {
   width: 400px;
   height: 360px;
-  background: #c8f3b3;
+  box-shadow: 2px 4px 12px #99a9bf;
+  margin-bottom: 5px;
 }
 </style>

@@ -3,19 +3,19 @@
     <div class='header'>
       <el-menu
         :unique-opened='true'
-        class='el-menu-demo mo'
+        class='menu'
         mode='horizontal'
-        background-color='#FFFFFF'
         text-color='#000'
         menu-trigger='hover'
         active-text-color='#008000'
         :router='true'
         :default-active="this.$route.path"
       >
-        <el-menu-item :index="item[0]">Route</el-menu-item>
+        <div class="item">
+        <el-menu-item :index ="item[0]" background-color="#FFFFFF"	>Route</el-menu-item>
         <el-menu-item :index="item[1]">Spot</el-menu-item>
         <el-menu-item :index="item[2]">Comment</el-menu-item>
-<!--        <el-menu-item :index="item[3]">Weather</el-menu-item>-->
+        </div>
       </el-menu>
     </div>
     <div class='main'>
@@ -52,22 +52,28 @@ export default {
 
   .header {
     position: fixed;
-    height: 50px;
-    background-color: rgb(255, 255, 255);
-    color: #000;
     top: 0;
     left: 0;
     right: 0;
     line-height: 80px;
     z-index: 100;
     flex-direction: row;
+
+    .menu{
+      margin: 0 auto;
+      justify-content: center;
+      flex-direction: row;
+
+      .item{
+        display: flex;
+        width: 400px;
+      }
+    }
   }
 
   .main {
     display: flex;
     flex-direction: column;
-    //overflow: hidden;
-    //width: 1903px;
     margin: 61px 5px 0 5px;
   }
 

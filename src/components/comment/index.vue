@@ -1,11 +1,5 @@
 <template>
   <div class='content'>
-    <div class='introduction-list'>
-      <el-divider content-position="left">INTRODUCE</el-divider>
-      <div class=introduction-box>
-        A beautiful place.
-      </div>
-    </div>
     <div class='comment-list'>
       <el-divider content-position="left">COMMENT</el-divider>
       <div class="comment-box"
@@ -42,7 +36,7 @@ export default {
   },
   mounted () {
     let that = this
-    util.$on('getComment', function () {
+    util.$on('getComment', ()=> {
       that.param.page = 1
       that.totalPage = 0
       that.comment = []
@@ -85,7 +79,8 @@ export default {
 .content {
   height: 400px;
   width: 300px;
-  border: solid 1px #c8f3b3;
+  //border: solid 1px #c8f3b3;
+  box-shadow: 2px 4px 12px #99a9bf;
 
   .introduction-list {
     height: 50px;
@@ -98,7 +93,7 @@ export default {
     height: 300px;
 
     .comment-box {
-      height: 250px;
+      height: 350px;
       margin: 10px;
 
       .inner-comment-box {

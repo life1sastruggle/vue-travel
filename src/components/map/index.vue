@@ -96,8 +96,10 @@ export default {
 <style scoped>
 #container {
   width: 1100px;
-  height: 860px;
-  border: solid 1px #77e851;
+  height: 430px;
+  /*border: solid 1px #77e851;*/
+  box-shadow: 2px 4px 12px #99a9bf;
 }
+
 
 </style>

@@ -107,6 +107,7 @@ body {
   width: 400px;
   height: 200px;
   font-family: 'Open Sans';
+  box-shadow: 2px 4px 12px #99a9bf;
   position: relative;
 }
 .currentTemp {

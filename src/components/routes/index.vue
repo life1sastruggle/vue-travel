@@ -11,9 +11,9 @@
                  style="width: 190px; height: 120px; opacity: 1;">
           </div>
           <div class="list_product_right">
-            <p class="list_product_title">{{item.name}}</p>
-              <span>{{ item.comment }}</span>
-              <img style="height: 16px; padding-left: 4px; margin-bottom: -2px; ">
+            <p class="list_product_title">{{ item.name }}</p>
+            <span>{{ item.comment }}</span>
+            <img style="height: 16px; padding-left: 4px; margin-bottom: -2px; ">
             <div class="list_product_content basefix">
               <div class="list_content_right">
                 <div class="list_change_box basefix">
@@ -57,9 +57,7 @@
       >
     </el-pagination>
   </div>
-  <!--  <div class='footer'>-->
 
-  <!--  </div>-->
 </template>
 
 <script>
@@ -67,6 +65,7 @@ import {getRoutes, getRouteSpotMapping} from '../../common/api'
 import {goPageTop} from '../../common/base'
 import {mapMutations} from 'vuex'
 import util from '../../common/util'
+
 export default {
   name: 'index',
 
@@ -79,7 +78,8 @@ export default {
       routeSpotParams: {
         route_id: 0
       },
-      isActive: ''
+      isActive: '',
+      total: 0,
     }
   },
 
@@ -94,13 +94,12 @@ export default {
           this.routes.push({
             id: res[i].id,
             name: res[i].name,
-            picUrl: 'http://127.0.0.1/'+res[i].pic_url,
+            picUrl: 'http://127.0.0.1/' + res[i].pic_url,
             score: res[i].score,
             price: res[i].price,
             intro: res[i].intro
           })
         }
-
       })
     },
     nextClick () {
@@ -116,7 +115,7 @@ export default {
         util.$emit('initMap', 'msg')
       })
     },
-    click(){
+    click () {
       this.$router.push('/comment')
     },
     handleCurrentChange (val) {
@@ -143,18 +142,26 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 .list_product_box {
   margin-bottom: 16px;
-  background: #F5F0D3D1;
+  //background: #F5F0D3D1;
   border-radius: 4px;
+  box-shadow: 2px 4px 12px #99a9bf;
   display: block;
 }
 
 .list_product_item_border {
   padding: 16px 0 16px 0;
   margin-bottom: 5px;
+  transition: all 0.3s;
+  background: #FFFFFF;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.03) translateZ(0);
+  }
 }
 
 .list_product_item {
@@ -186,12 +193,13 @@ export default {
 }
 
 /deep/ .el-collapse-item__header {
-  background: #F5F0D3D1;
+  //background: #F5F0D3D1;
 }
 
 .click {
   box-shadow: 0px 0px 10px #909487F0
 }
+
 .list_product_title {
   font-size: 16px;
   color: #333;

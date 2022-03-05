@@ -5,7 +5,9 @@
         <comment/>
     </div>
     <div class="main-center">
-        <AMap/>
+      <carousel/>
+      <introduction/>
+      <AMap/>
     </div>
     <div class="main-right">
         <slider/>
@@ -17,6 +19,8 @@
 <script>
 import transfer from '../components/transfer/index'
 import comment from '../components/comment/index'
+import carousel from '../components/carousel/index'
+import introduction from '../components/introduction/index'
 import AMap from '../components/map/index'
 import slider from '../components/slider/index'
 import radar from '../components/echarts/index'
@@ -29,10 +33,12 @@ export default {
   components: {
     transfer,
     comment,
+    carousel,
+    introduction,
     AMap,
     slider,
     radar,
-    weather
+    weather,
   },
   created () {
   },
@@ -43,13 +49,11 @@ export default {
 .spots-main {
   display: flex;
   flex-direction: row;
-  //overflow: hidden;
   justify-content: center;
   .main-right {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    border: solid 1px #77e851;
     margin: 5px;
   }
   .main-center{

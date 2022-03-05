@@ -34,7 +34,9 @@ export default {
 
 <style scoped>
   .slider{
-    height: 300px
+    height: 300px;
+    box-shadow: 2px 4px 12px #99a9bf;
+    margin-bottom: 10px;
   }
   span{
     font-size: 11px;

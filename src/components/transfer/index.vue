@@ -1,6 +1,5 @@
 <template>
   <div class='transfer'>
-    <p class='title'>Spots</p>
     <el-transfer
       filterable
       v-model="target"
@@ -34,7 +33,7 @@ export default {
     }
   },
   computed:{
-    ...mapState(['targetSpotId', 'sourceSpot','targetSpot']),
+    ...mapState(['targetSpotId', 'sourceSpot','targetSpot','selectedSpot']),
   },
   methods: {
     ...mapMutations(['ADD_SOURCE_SPOT', 'ADD_TARGET_SPOT', 'REDUCE_TARGET_SPOT','SET_SELECTED_SPOT','REDUCE_ALL_TARGET_SPOT']),
@@ -58,7 +57,8 @@ export default {
       this.ADD_TARGET_SPOT(key)
       this.target = this.targetSpotId
       this.SET_SELECTED_SPOT({spot: key})
-      util.$emit('getComment', 'msg')
+      util.$emit('getComment')
+      util.$emit('getIntroduction')
     },
     deleteSpot (key) {
       this.REDUCE_TARGET_SPOT(key)
@@ -82,7 +82,7 @@ export default {
 <style lang="scss" scoped>
 .transfer {
   flex-direction: row;
-  border: solid 1px #77e851;
+  box-shadow: 2px 4px 12px #99a9bf;
 }
 
 .title {
@@ -98,8 +98,7 @@ export default {
 
 /deep/ .el-transfer-panel {
   width: 150px;
-  height: 399px;
-  background: #FFF7C0CC;
+  height: 425px;
 
   .el-checkbox__inner {
     display: none;

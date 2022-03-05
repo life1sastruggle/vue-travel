@@ -59,10 +59,6 @@ export default {
       } else {
         this.totalPage = Math.floor(this.total / 5 + 1)
       }
-      console.log('totalPage', this.totalPage)
-      console.log('currentPage', this.param.page)
-      console.log('flag', this.param.page >= this.totalPage)
-      console.log('comment', this.comment)
       return this.param.page >= this.totalPage
     },
     disabled () {
@@ -93,6 +89,9 @@ export default {
 
   .introduction-list {
     height: 50px;
+    .introduction-box{
+      padding-left: 10px;
+    }
   }
 
   .comment-list {

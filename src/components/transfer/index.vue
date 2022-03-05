@@ -14,8 +14,8 @@
       @right-check-change="deleteSpot"
     >
     </el-transfer>
-    <el-button class="transfer-footer" slot="right-footer" size="small" @click="startPlanning">Start Planning
-    </el-button>
+    <el-button type="success" round class="transfer-footer" slot="left-footer" size="small" @click="startPlanning">Start Planning</el-button>
+    <el-button type="success" round class="transfer-footer" slot="right-footer" size="small" style="" @click="deselect">Deselect</el-button>
   </div>
 </template>
 <script>
@@ -37,7 +37,7 @@ export default {
     ...mapState(['targetSpotId', 'sourceSpot','targetSpot']),
   },
   methods: {
-    ...mapMutations(['ADD_SOURCE_SPOT', 'ADD_TARGET_SPOT', 'REDUCE_TARGET_SPOT','SET_SELECTED_SPOT']),
+    ...mapMutations(['ADD_SOURCE_SPOT', 'ADD_TARGET_SPOT', 'REDUCE_TARGET_SPOT','SET_SELECTED_SPOT','REDUCE_ALL_TARGET_SPOT']),
     handleChange (value, direction, movedKeys) {
       console.log(value, direction, movedKeys)
     },
@@ -55,17 +55,21 @@ export default {
       this.target = this.targetSpotId
     },
     addSpot (key) {
-      this.ADD_TARGET_SPOT({spotArray: key})
+      this.ADD_TARGET_SPOT(key)
       this.target = this.targetSpotId
       this.SET_SELECTED_SPOT({spot: key})
       util.$emit('getComment', 'msg')
     },
     deleteSpot (key) {
-      this.REDUCE_TARGET_SPOT({spotArray: key})
+      this.REDUCE_TARGET_SPOT(key)
       this.target = this.targetSpotId
     },
     startPlanning () {
       util.$emit('initMap', 'msg')
+    },
+    deselect(){
+      this.REDUCE_ALL_TARGET_SPOT()
+      this.target = this.targetSpotId
     }
   },
   mounted () {
@@ -114,7 +118,9 @@ export default {
     z-index: 1;
   }
 }
-
+/deep/ .el-button+.el-button {
+  margin-left: 110px;
+}
 /deep/ .el-transfer__buttons {
   display: none;
 }

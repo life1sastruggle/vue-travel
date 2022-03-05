@@ -8,20 +8,18 @@
             <img class="list_product_pic"
                  :src=item.picUrl
                  :alt=item.name
-                 style="width: 200px; height: 150px; opacity: 1;">
+                 style="width: 190px; height: 120px; opacity: 1;">
           </div>
           <div class="list_product_right">
-            <p class="list_product_title"
-               :title=item.name>
+            <p class="list_product_title">{{item.name}}</p>
               <span>{{ item.comment }}</span>
-              <img style="height: 16px; padding-left: 4px; margin-bottom: -2px;">
-            </p>
+              <img style="height: 16px; padding-left: 4px; margin-bottom: -2px; ">
             <div class="list_product_content basefix">
               <div class="list_content_right">
                 <div class="list_change_box basefix">
                   <div class="list_change_left">
                     <p class="list_change_grade">
-                      <strong>{{ item.score }}</strong>分</p>
+                      <strong>{{ item.score }}</strong> points</p>
                   </div>
                 </div>
               </div>
@@ -41,10 +39,10 @@
         </div>
       </div>
       <div class="comment">
-        <el-collapse v-model="item.name">
-          <el-collapse-item title="Comments" name="1">
-            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
-            <div><a href="/comments">More Comments</a></div>
+        <el-collapse>
+          <el-collapse-item title="Comment">
+            <div>A test comment</div>
+            <div><a href='javascript:void(0)' @click="click()">More Comments</a></div>
           </el-collapse-item>
         </el-collapse>
       </div>
@@ -68,7 +66,7 @@
 import {getRoutes, getRouteSpotMapping} from '../../common/api'
 import {goPageTop} from '../../common/base'
 import {mapMutations} from 'vuex'
-
+import util from '../../common/util'
 export default {
   name: 'index',
 
@@ -96,7 +94,7 @@ export default {
           this.routes.push({
             id: res[i].id,
             name: res[i].name,
-            picUrl: res[i].picUrl,
+            picUrl: 'http://127.0.0.1/'+res[i].pic_url,
             score: res[i].score,
             price: res[i].price,
             intro: res[i].intro
@@ -115,7 +113,11 @@ export default {
       getRouteSpotMapping(this.routeSpotParams, data => {
         this.ADD_ROUTE_TARGET_SPOT({spotArray: data})
         this.$router.push('/spot')
+        util.$emit('initMap', 'msg')
       })
+    },
+    click(){
+      this.$router.push('/comment')
     },
     handleCurrentChange (val) {
       this.params.page = val
@@ -173,6 +175,7 @@ export default {
 .list_product_pic {
   border-radius: 2px;
   display: block;
+  margin-left: 10px;
 }
 
 .main-col {
@@ -188,6 +191,13 @@ export default {
 
 .click {
   box-shadow: 0px 0px 10px #909487F0
+}
+.list_product_title {
+  font-size: 16px;
+  color: #333;
+  line-height: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
 </style>

@@ -4,6 +4,7 @@ const ADD_ROUTE_TARGET_SPOT = 'ADD_ROUTE_TARGET_SPOT'
 const ADD_TARGET_SPOT = 'ADD_TARGET_SPOT'
 const REDUCE_TARGET_SPOT = 'REDUCE_TARGET_SPOT'
 const SET_SELECTED_SPOT = 'SET_SELECTED_SPOT'
+const REDUCE_ALL_TARGET_SPOT = 'REDUCE_ALL_TARGET_SPOT'
 
 export default {
   [ADD_SOURCE_SPOT] (state, {spotArray}) {
@@ -22,15 +23,21 @@ export default {
       state.targetSpot.set(item.id, item)
     })
   },
-  [ADD_TARGET_SPOT] (state, {spotArray}) {
-    state.targetSpotId.push(spotArray[0])
-    state.targetSpot.set(spotArray[0], state.sourceSpot.get(spotArray[0]))
+  [ADD_TARGET_SPOT] (state, id) {
+    state.targetSpotId.push(id[0])
+    state.targetSpot.set(id[0], state.sourceSpot.get(id[0]))
+    console.log(state.targetSpotId)
+
   },
-  [REDUCE_TARGET_SPOT] (state, {spotArray}) {
-    state.targetSpotId = state.targetSpotId.filter(item => spotArray[0] !== item)
-    state.targetSpot.delete(spotArray[0])
+  [REDUCE_TARGET_SPOT] (state, id) {
+    state.targetSpotId = state.targetSpotId.filter(item => id[0] !== item)
+    state.targetSpot.delete(id[0])
   },
   [SET_SELECTED_SPOT] (state, {spot}) {
     state.selectedSpot = state.sourceSpot.get(spot[0])
+  },
+  [REDUCE_ALL_TARGET_SPOT](state) {
+    state.targetSpotId = []
+    state.targetSpot.clear()
   }
 }

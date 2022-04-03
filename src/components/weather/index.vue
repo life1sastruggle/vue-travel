@@ -1,25 +1,97 @@
 <template>
-  <div id="weather_wrapper">
-    <div class="weatherCard">
-      <div class="currentTemp">
-        <span class="temp">23&deg;</span>
-        <span class="location">Hangzhou</span>
+  <div id="weather_wrapper"> 
+    <div class="weatherCard" v-for="(element,index) in weatherArr"
+    :key="index" :src="element" v-show="n==index" @mouseenter="clearGo" @mouseleave="go">      
+      <div class="currentTemp" >
+        <span class="temp">
+            {{element.low}}</br>
+            {{element.high}}</br>
+        </span>
+        <span class="location">{{element.date}}</span>
+        <ul class="points">
+          <li :style="{backgroundColor:n==indexs?'#7474BF':''}" @click="clickPoint(indexs)" v-for="(elements,indexs) in weatherArr" :key="indexs"></li>
+        </ul>   
       </div>
       <div class="currentWeather">
-        <span class="conditions">&#xf00d;</span>
+        <span class="conditions" v-if="element.type=='晴'">&#xf00d;</span>
+        <span class="conditions" v-else-if="element.type=='阴'">&#xf00c;</span>
+        <span class="conditions" v-else-if="element.type=='多云'">&#xf002;</span>
         <div class="info">
-          <span class="rain">1.3 MM</span>
-          <span class="wind">10 MPH</span>
+          <span class="rain">{{element.type}}</span>
+          <span class="wind">{{element.fengli.substring(9,11)}}</span>      
         </div>
-      </div>
+      </div> 
+      <span class = "left_btn" @click="clickPage('up')">&lt;</span>
+      <span class = "right_btn" @click="clickPage('down')">&gt;</span>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'index'
-}
+  import axios from 'axios';
+  export default {
+    data() {
+      return {
+        n:0,
+        weatherArr:[],
+        interId:null
+      }
+    },
+    methods:{
+        go(){
+            this.interId=setInterval(()=>{
+                this.n++;
+                if(this.n == this.weatherArr.length){
+                    this.n = 0
+                }
+            },2500)
+        },
+        clearGo(){
+            clearInterval(this.interId)
+        },
+        clickPoint(str){
+          console.log(str);
+          this.n = str;
+        },
+        clickPage(str){
+          if(str == "up"){
+            if(this.n == 0){
+                    this.n = this.weatherArr.length
+                }
+            this.n--;   
+          }else if(str == "down"){
+            this.n++;
+            if(this.n == this.weatherArr.length){
+                    this.n = 0
+                }
+            
+          }
+        },
+        getStatus(str) {
+          if (str == '晴') {
+            return '&#xf00d'
+          }
+        },
+        searchWeather(){
+            var t = this;
+            var city = this.city;
+            axios.get("http://wthrcdn.etouch.cn/weather_mini?city=杭州").then(function(response){
+                t.weatherArr = response.data.data.forecast.map( (ele) => {
+                  ele.typeStr = 'f00d';
+                  return ele;
+                });
+                console.log(response);
+            },function(error){})
+        },
+        
+    },
+    mounted(){
+        this.searchWeather()
+        this.go()
+        
+    }
+  }
+        
 </script>
 
 <style scoped>
@@ -55,10 +127,10 @@ body {
   right: 0;
 }
 .temp {
-  font-size: 80px;
+  font-size: 40px;
   text-align: center;
   display: block;
-  font-weight: 300;
+  font-weight: 400;
   color: rgb(255, 255, 255);
   padding: 20px 0 0;
 }
@@ -93,7 +165,8 @@ body {
   position: absolute;
   left: 10px;
   word-spacing: 60px;
-  top: 3px;
+  top: 10px;
+  text-align: center;
 }
 .rain::before {
   display: block;
@@ -101,7 +174,7 @@ body {
   font-family: weathericons;
   font-size: 40px;
   left: 6px;
-  top: -4px;
+  top: -15px;
   position: absolute;
 }
 .wind {
@@ -109,7 +182,7 @@ body {
   right: -10px;
   position: absolute;
   word-spacing: 60px;
-  top: 3px;
+  top: 10px;
 }
 .wind::before {
   display: block;
@@ -118,6 +191,64 @@ body {
   font-size: 25px;
   left: -10px;
   position: absolute;
-  top: 5px;
+  top: -5px;
 }
+.left_btn{
+  width: 18px;
+  height: 20px;
+  font-weight: bolder;
+  background: rgba(180,180,180,0.05);
+  color:#fff;
+  display:block;
+  left:0px;
+  top:92.5px;
+  position: absolute;
+  border-radius:0px 7px 7px 0px; 
+  line-height: 20px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.left_btn:hover{
+    background: rgba(180,180,180,0.7);
+}
+.right_btn{
+  width: 18px;
+  height: 20px;
+  font-weight: bolder;
+  background: rgba(180,180,180,0.05);
+  color:#fff;
+  display:block;
+  text-align: right;
+  right:0px;
+  top:92.5px;
+  position: absolute;
+  border-radius:7px 0px 0px 7px; 
+  line-height: 20px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.right_btn:hover{
+    background: rgba(180,180,180,0.7);
+}
+.points{
+    width: 70px;
+    height: 30px;
+    position:absolute;
+    /* background-color: black; */
+    /* botton:15px; */
+    left:40px;
+    border-radius:7px
+
+    
+}
+.points li{
+    width: 8px;
+    height: 8px;
+    background-color: rgba(255,255,255,0.5);
+    float:left;
+    margin:3px;
+    border-radius:50%;
+    list-style: none;
+}
+
 </style>

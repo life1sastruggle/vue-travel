@@ -9,11 +9,12 @@
         noChecked: '${total}',
         hasChecked: '${total}'
       }"
+      target-order = "push"
       @left-check-change="addSpot"
       @right-check-change="deleteSpot"
     >
     </el-transfer>
-    <el-button type="success" round class="transfer-footer" slot="left-footer" size="small" @click="startPlanning">Start Planning</el-button>
+    <el-button type="success" round class="transfer-footer" slot="left-footer" size="small" @click="startPlanning">Planning</el-button>
     <el-button type="success" round class="transfer-footer" slot="right-footer" size="small" style="" @click="deselect">Deselect</el-button>
   </div>
 </template>
@@ -63,6 +64,9 @@ export default {
     deleteSpot (key) {
       this.REDUCE_TARGET_SPOT(key)
       this.target = this.targetSpotId
+      this.SET_SELECTED_SPOT({spot: key})
+      util.$emit('getComment')
+      util.$emit('getIntroduction')
     },
     startPlanning () {
       util.$emit('initMap', 'msg')
@@ -97,7 +101,7 @@ export default {
 }
 
 /deep/ .el-transfer-panel {
-  width: 150px;
+  width: 185px;
   height: 425px;
 
   .el-checkbox__inner {
@@ -123,4 +127,9 @@ export default {
 /deep/ .el-transfer__buttons {
   display: none;
 }
+/deep/ .el-transfer-panel__list.is-filterable {
+  height: 320px;
+  padding-top: 0;
+}
+
 </style>

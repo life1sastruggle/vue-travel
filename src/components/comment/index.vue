@@ -9,7 +9,7 @@
            infinite-scroll-immediate="false"
       >
         <div v-for="(item,i) in comment" class="inner-comment-box" :key=i>
-          <p>{{ item.body }}</p>
+          <p>{{ item.text }}</p>
           <el-divider/>
         </div>
         <p v-if="noMore">No more</p>

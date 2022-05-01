@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import {getRoutes, getRouteSpotMapping} from '../../common/api'
+import {getRoute, getRouteSpotMapping} from '../../common/api'
 import {goPageTop} from '../../common/base'
 import {mapMutations} from 'vuex'
 import util from '../../common/util'
@@ -86,7 +86,7 @@ export default {
   methods: {
     ...mapMutations(['ADD_ROUTE_TARGET_SPOT']),
     getData () {
-      getRoutes(this.params, data => {
+      getRoute(this.params, data => {
         this.total = data.total
         let res = data.data
         this.routes = []

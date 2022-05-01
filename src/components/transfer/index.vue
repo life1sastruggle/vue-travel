@@ -3,51 +3,50 @@
     <el-transfer
       filterable
       v-model="target"
-      :data="spot"
+      :data="attraction"
       :titles="['Popular', 'Selected']"
       :format="{
         noChecked: '${total}',
         hasChecked: '${total}'
       }"
-      target-order = "push"
+      target-order="push"
       @left-check-change="addSpot"
       @right-check-change="deleteSpot"
     >
     </el-transfer>
-    <el-button type="success" round class="transfer-footer" slot="left-footer" size="small" @click="startPlanning">Planning</el-button>
-    <el-button type="success" round class="transfer-footer" slot="right-footer" size="small" style="" @click="deselect">Deselect</el-button>
+    <el-button type="success" round class="transfer-footer" slot="left-footer" size="small" @click="startPlanning">
+      Planning
+    </el-button>
+    <el-button type="success" round class="transfer-footer" slot="right-footer" size="small" style="" @click="deselect">
+      Deselect
+    </el-button>
   </div>
 </template>
 <script>
 import {mapState, mapMutations} from 'vuex'
-import {getSpot} from '../../common/api'
+import {getAttraction} from '../../common/api'
 import util from '../../common/util'
 
 export default {
   data () {
     return {
       target: [],
-      spot: [],
       renderFunc (h, option) {
         return <span>{option.key} - {option.label}</span>
       }
     }
   },
-  computed:{
-    ...mapState(['targetSpotId', 'sourceSpot','targetSpot','selectedSpot']),
+  computed: {
+    ...mapState(['targetSpotId', 'sourceSpot', 'targetSpot', 'selectedSpot', 'attraction']),
   },
   methods: {
-    ...mapMutations(['ADD_SOURCE_SPOT', 'ADD_TARGET_SPOT', 'REDUCE_TARGET_SPOT','SET_SELECTED_SPOT','REDUCE_ALL_TARGET_SPOT']),
+    ...mapMutations(['ADD_SOURCE_SPOT', 'ADD_TARGET_SPOT', 'REDUCE_TARGET_SPOT', 'SET_SELECTED_SPOT', 'REDUCE_ALL_TARGET_SPOT']),
     handleChange (value, direction, movedKeys) {
       console.log(value, direction, movedKeys)
     },
     getSource () {
-      let that = this
-      getSpot(data => {
+      getAttraction('', data => {
         this.ADD_SOURCE_SPOT({spotArray: data.data})
-        this.spot = Array.from(that.sourceSpot.values()).map((item) => {
-          return Object.assign({}, {'key': item.id, 'label': item.name})
-        })
         util.$emit('initMap', 'msg')
       })
     },
@@ -71,7 +70,7 @@ export default {
     startPlanning () {
       util.$emit('initMap', 'msg')
     },
-    deselect(){
+    deselect () {
       this.REDUCE_ALL_TARGET_SPOT()
       this.target = this.targetSpotId
     }
@@ -121,12 +120,15 @@ export default {
     z-index: 1;
   }
 }
-/deep/ .el-button+.el-button {
+
+/deep/ .el-button + .el-button {
   margin-left: 110px;
 }
+
 /deep/ .el-transfer__buttons {
   display: none;
 }
+
 /deep/ .el-transfer-panel__list.is-filterable {
   height: 320px;
   padding-top: 0;

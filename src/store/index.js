@@ -10,6 +10,7 @@ const state = {
   targetSpot: new Map(),
   targetSpotId: [],
   selectedSpot: null,
+  attraction:[]
 }
 export default new Vuex.Store({
   state,

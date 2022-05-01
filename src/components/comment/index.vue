@@ -78,7 +78,7 @@ export default {
 <style lang="scss" scoped>
 .content {
   height: 400px;
-  width: 300px;
+  width: 370px;
   //border: solid 1px #c8f3b3;
   box-shadow: 2px 4px 12px #99a9bf;
 
@@ -97,7 +97,7 @@ export default {
       margin: 10px;
 
       .inner-comment-box {
-        width: 250px;
+        width: 320px;
         padding-left: 10px;
       }
     }

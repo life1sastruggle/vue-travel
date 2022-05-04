@@ -1,14 +1,43 @@
 <template>
   <el-carousel :interval="4000" type="card" height="265px">
-    <el-carousel-item v-for="item in 6" :key="item">
-      <h3 class="medium">{{ item }}</h3>
+    <el-carousel-item v-for="item in imageList" :key="item">
+      <img :src=item>
     </el-carousel-item>
   </el-carousel>
 </template>
 
 <script>
+import {getAttractionImage} from '../../common/api'
+import {mapState} from 'vuex'
+import util from '../../common/util'
+import {host} from '../../common/config'
+
 export default {
-  name: 'index'
+  data () {
+    return {
+      imageList: []
+    }
+  },
+  name: 'index',
+  computed: {
+    ...mapState(['selectedSpot']),
+  },
+  methods: {
+    getImage () {
+      this.imageList.length = 0
+      getAttractionImage({id: this.selectedSpot.id}, res => {
+        for (let i = 0; i <  res.data.length; i++) {
+          this.imageList.push(host +  res.data[i].image)
+        }
+      })
+    }
+  },
+  mounted () {
+    let that = this
+    util.$on('getImage', function () {
+      that.getImage()
+    })
+  }
 }
 </script>
 

@@ -6,7 +6,7 @@
         <div class="list_product_item">
           <div class="list_product_left">
             <img class="list_product_pic"
-                 :src=item.picUrl
+                 :src=item.image
                  :alt=item.name
                  style="width: 190px; height: 120px; opacity: 1;">
           </div>
@@ -65,6 +65,7 @@ import {getRoute, getRouteSpotMapping} from '../../common/api'
 import {goPageTop} from '../../common/base'
 import {mapMutations} from 'vuex'
 import util from '../../common/util'
+import {host} from '../../common/config'
 
 export default {
   name: 'index',
@@ -94,7 +95,7 @@ export default {
           this.routes.push({
             id: res[i].id,
             name: res[i].name,
-            picUrl: 'http://127.0.0.1/' + res[i].pic_url,
+            image: host + res[i].image,
             score: res[i].score,
             price: res[i].price,
             intro: res[i].intro

@@ -59,6 +59,8 @@ export default {
       this.SET_SELECTED_SPOT({spot: key})
       util.$emit('getComment')
       util.$emit('getIntroduction')
+      util.$emit('getImage')
+      util.$emit('getRadarData')
     },
     deleteSpot (key) {
       this.REDUCE_TARGET_SPOT(key)
@@ -66,6 +68,8 @@ export default {
       this.SET_SELECTED_SPOT({spot: key})
       util.$emit('getComment')
       util.$emit('getIntroduction')
+      util.$emit('getImage')
+      util.$emit('getRadarData')
     },
     startPlanning () {
       util.$emit('initMap', 'msg')

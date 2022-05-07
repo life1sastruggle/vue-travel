@@ -21,6 +21,8 @@ export default {
     })
   },
   [ADD_ROUTE_TARGET_SPOT] (state, {spotArray}) {
+    state.targetSpotId.length = 0
+    state.targetSpot.clear()
     spotArray.forEach((item) => {
       state.targetSpotId.push(item.id)
       state.targetSpot.set(item.id, item)

@@ -1,61 +1,27 @@
 <template>
-  <div class="main-col">
-    <div v-for="(item,i) in routes" class="list_product_box" :key=i>
-      <div class="list_product_item_border" :class="{'click':i === isActive}"
+  <div class="container">
+    <div class="list">
+      <div v-for="(item,i) in routes" class="list-box" :key=i
+           :style="{'background-image':'url('+item.image+')'} " :class="{'click':i === isActive}"
            @mouseenter="mouseenter(i)" @mouseleave="mouseleave" @click="handleClick(item.id)">
-        <div class="list_product_item">
-          <div class="list_product_left">
-            <img class="list_product_pic"
-                 :src=item.image
-                 :alt=item.name
-                 style="width: 190px; height: 120px; opacity: 1;">
-          </div>
-          <div class="list_product_right">
-            <p class="list_product_title">{{ item.name }}</p>
-            <span>{{ item.comment }}</span>
-            <img style="height: 16px; padding-left: 4px; margin-bottom: -2px; ">
-            <div class="list_product_content basefix">
-              <div class="list_content_right">
-                <div class="list_change_box basefix">
-                  <div class="list_change_left">
-                    <p class="list_change_grade">
-                      <strong>{{ item.score }}</strong> points</p>
-                  </div>
-                </div>
-              </div>
-              <div class="list_sr_price_box basefix">
-                <div class="list_sr_price"><dfn>￥</dfn><strong>{{ item.price }}</strong>起</div>
-              </div>
-            </div>
-            <div class="list_content_left">
-              <div>
-                <div class="list_explan_text_box" style="position: relative;"><p class="list_explan_text">
-                  {{ item.intro }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="goto"></div>
+        <div class="item">
+          <p class="item-name">{{ item.name }}</p>
+          <p class="item-grade">{{ item.score }} </p>
         </div>
-      </div>
-      <div class="comment">
-        <el-collapse>
-          <el-collapse-item title="Comment">
-            <div>A test comment</div>
-            <div><a href='javascript:void(0)' @click="click()">More Comments</a></div>
-          </el-collapse-item>
-        </el-collapse>
+        <p class="item-introduction">{{ item.introduction }}</p>
       </div>
     </div>
-    <el-pagination
-      background
-      layout="prev, pager, next, jumper"
-      @next-click="nextClick"
-      @prev-click="prevClick"
-      @current-change="handleCurrentChange"
-      :total="total">
-      >
-    </el-pagination>
+    <div class="pagination">
+      <el-pagination
+        background
+        layout="prev, pager, next, jumper"
+        @next-click="nextClick"
+        @prev-click="prevClick"
+        @current-change="handleCurrentChange"
+        :total="total"
+        class='pagination'>
+      </el-pagination>
+    </div>
   </div>
 
 </template>
@@ -87,26 +53,19 @@ export default {
   methods: {
     ...mapMutations(['ADD_ROUTE_TARGET_SPOT']),
     getData () {
-      getRoute(this.params, data => {
-        this.total = data.total
-        let res = data.data
-        this.routes = []
-        for (let i = 0; i <= res.length; i++) {
-          this.routes.push({
-            id: res[i].id,
-            name: res[i].name,
-            image: host + res[i].image,
-            score: res[i].score,
-            price: res[i].price,
-            intro: res[i].intro
-          })
+      getRoute(this.params, response => {
+        this.total = response.total
+        for (let i = 0; i < response.data.length; i++) {
+          response.data[i].image = host + response.data[i].image
         }
+        this.routes = response.data
       })
     },
+
     nextClick () {
       this.params.page += 1
       this.getData()
-      goPageTop('#main-col')
+      goPageTop('#list')
     },
     handleClick (id) {
       this.routeSpotParams.route_id = id
@@ -122,19 +81,18 @@ export default {
     handleCurrentChange (val) {
       this.params.page = val
       this.getData()
-      goPageTop('#main-col')
+      goPageTop('#list')
     },
     prevClick () {
       this.params.page -= 1
       this.getData()
-      goPageTop('#main-col')
+      goPageTop('#list')
     },
     mouseleave () {
       this.isActive = ''
     },
     mouseenter (index) {
       this.isActive = index
-
     }
   },
   mounted () {
@@ -145,68 +103,87 @@ export default {
 
 <style lang="scss" scoped>
 
-.list_product_box {
-  margin-bottom: 16px;
-  //background: #F5F0D3D1;
-  border-radius: 4px;
-  box-shadow: 2px 4px 12px #99a9bf;
-  display: block;
-}
+.container {
+  display: flex;
+  flex-direction: column;
 
-.list_product_item_border {
-  padding: 16px 0 16px 0;
-  margin-bottom: 5px;
-  transition: all 0.3s;
-  background: #FFFFFF;
+  .list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 1800px;
+    margin-top: 5px;
+    flex-wrap: wrap;
 
-  &:hover {
-    cursor: pointer;
-    transform: scale(1.03) translateZ(0);
+    .list-box {
+      margin: 5px 16px 5px 16px;
+      border-radius: 4px;
+      box-shadow: 2px 4px 12px #99a9bf;
+      width: 418px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      height: 300px;
+      transition: all 0.3s;
+      background-size: 418px 300px;
+
+      &:hover {
+        cursor: pointer;
+        transform: scale(0.98) translateZ(0);
+      }
+
+      .click {
+        box-shadow: 0 0 10px #909487F0
+      }
+
+      .item {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 10px 15px;
+        margin: 10px;
+
+        .item-name {
+          padding: 0;
+          margin: 0;
+          font-weight: bold;
+          font-size: 1.78em;
+          line-height: 28px;
+          color: #FFFFFF;
+          text-shadow: 1px 1px 10px #111111;
+        }
+        .item-grade {
+          background: #1CBD77;
+          color: #FFFFFF;
+          display: inline-block;
+          box-sizing: border-box;
+          text-align: center;
+          font-weight: 800;
+          line-height: 2;
+          width: 35px;
+          border-radius: 6.4px 6.4px 6.4px 0;
+          font-size: 16px;
+        }
+      }
+      .item-introduction {
+        font-size: 12px;
+        line-height: 20px;
+        font-weight: 600;
+        margin: 0 20px 5px 20px;
+        text-shadow: 1px 1px 8px #000000;
+        color: #FFFFFF;
+        height: 100px;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    padding-bottom: 10px;
   }
 }
 
-.list_product_item {
-  padding: 0 0 0 216px;
-  font-size: 12px;
-  color: #333;
-}
-
-.list_product_left {
-  float: left;
-  width: 200px;
-  margin-left: -216px;
-  position: relative;
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.list_product_pic {
-  border-radius: 2px;
-  display: block;
-  margin-left: 10px;
-}
-
-.main-col {
-  display: flex;
-  flex-direction: column;
-  width: 800px;
-  margin-top: 5px;
-}
-
-/deep/ .el-collapse-item__header {
-  //background: #F5F0D3D1;
-}
-
-.click {
-  box-shadow: 0px 0px 10px #909487F0
-}
-
-.list_product_title {
-  font-size: 16px;
-  color: #333;
-  line-height: 20px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
 
 </style>

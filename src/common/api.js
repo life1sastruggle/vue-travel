@@ -20,3 +20,7 @@ export function getComment (param, id, res) {
 export function getAttractionImage (param, res) {
   https.fetchGet(host + '/attraction_image/', param).then(res)
 }
+
+export function getBanner(param, res) {
+  https.fetchGet(host + '/banner/', param).then(res)
+}

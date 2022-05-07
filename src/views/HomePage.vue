@@ -11,21 +11,15 @@
         :router='true'
         :default-active="this.$route.path"
       >
-        <div class="item">
-        <el-menu-item :index ="item[0]" background-color="#FFFFFF"	>Route</el-menu-item>
-        <el-menu-item :index="item[1]">Spot</el-menu-item>
-        <el-menu-item :index="item[2]">Comment</el-menu-item>
-        </div>
+        <el-menu-item :index="item[0]" class="item">Routes</el-menu-item>
+        <el-menu-item :index="item[1]" class="item">Attractions</el-menu-item>
       </el-menu>
     </div>
     <div class='main'>
-      <keep-alive>
-        <router-view/>
-      </keep-alive>
+      <!--      <keep-alive>-->
+      <router-view/>
+      <!--      </keep-alive>-->
     </div>
-    <!--    <div class='footer'>-->
-    <!--      <a class="toinfo" href="/">AboutUs</a>-->
-    <!--    </div>-->
   </div>
 </template>
 
@@ -42,31 +36,35 @@ export default {
 </script>
 <style lang="scss" scoped>
 
-
 .container {
+  display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   position: relative;
   margin: 0;
   padding: 0;
 
   .header {
+    display: flex;
     position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
+    width: 100%;
     line-height: 80px;
     z-index: 100;
     flex-direction: row;
 
-    .menu{
+    .menu {
+      display: flex;
       margin: 0 auto;
       justify-content: center;
       flex-direction: row;
+      width: 100%;
 
-      .item{
+      .item {
         display: flex;
         width: 400px;
+        justify-content: center;
+        font-weight: bold;
       }
     }
   }
@@ -77,18 +75,6 @@ export default {
     margin: 61px 5px 0 5px;
   }
 
-  //.footer {
-  //  text-align: left;
-  //  height: 82px;
-  //  width: 100%;
-  //  line-height: 42px;
-  //  border-top: none;
-  //  margin-top: 0;
-  //  background: #111111;
-  //}
 }
 
-/deep/ .el-tabs__nav {
-  margin-left: 20px;
-}
 </style>

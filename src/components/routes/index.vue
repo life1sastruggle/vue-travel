@@ -3,7 +3,7 @@
     <div class="list">
       <div v-for="(item,i) in routes" class="list-box" :key=i
            :style="{'background-image':'url('+item.image+')'} " :class="{'click':i === isActive}"
-           @mouseenter="mouseenter(i)" @mouseleave="mouseleave" @click="handleClick(item.id)">
+           @mouseenter="mouseenter(i)" @mouseleave="mouseleave" @click="handleClick(item)">
         <div class="item">
           <p class="item-name">{{ item.name }}</p>
           <p class="item-grade">{{ item.score }} </p>
@@ -67,16 +67,16 @@ export default {
       this.getData()
       goPageTop('#list')
     },
-    handleClick (id) {
-      this.routeSpotParams.route_id = id
+    handleClick (item) {
+      this.routeSpotParams.route_id = item.id
+      this.$store.state.selectedSpot = null
       getRouteSpotMapping(this.routeSpotParams, data => {
         this.ADD_ROUTE_TARGET_SPOT({spotArray: data})
+        this.$store.state.selectedRoute = item
+        this.$store.state.selectedSpot = null
         this.$router.push('/spot')
-        util.$emit('initMap', 'msg')
+        util.$emit('initMap')
       })
-    },
-    click () {
-      this.$router.push('/comment')
     },
     handleCurrentChange (val) {
       this.params.page = val
@@ -151,6 +151,7 @@ export default {
           color: #FFFFFF;
           text-shadow: 1px 1px 10px #111111;
         }
+
         .item-grade {
           background: #1CBD77;
           color: #FFFFFF;
@@ -164,6 +165,7 @@ export default {
           font-size: 16px;
         }
       }
+
       .item-introduction {
         font-size: 12px;
         line-height: 20px;

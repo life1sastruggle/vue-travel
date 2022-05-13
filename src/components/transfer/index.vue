@@ -14,12 +14,18 @@
       @right-check-change="deleteSpot"
     >
     </el-transfer>
-    <el-button type="success" round class="transfer-footer" slot="left-footer" size="small" @click="startPlanning">
-      Planning
-    </el-button>
-    <el-button type="success" round class="transfer-footer" slot="right-footer" size="small" style="" @click="deselect">
-      Deselect
-    </el-button>
+    <div class='button'>
+      <div class="transfer-footer">
+      <el-button type="success" round slot="left-footer" size="small" @click="startPlanning">
+        Planning
+      </el-button>
+      </div>
+      <div class="transfer-footer">
+      <el-button type="success" round slot="right-footer" size="small" @click="deselect">
+        Deselect
+      </el-button>
+        </div>
+    </div>
   </div>
 </template>
 <script>
@@ -47,32 +53,26 @@ export default {
     getSource () {
       getAttraction('', data => {
         this.ADD_SOURCE_SPOT({spotArray: data.data})
-        util.$emit('initMap', 'msg')
+        util.$emit('initMap')
       })
     },
     getTarget () {
       this.target = this.targetSpotId
     },
     addSpot (key) {
-      this.ADD_TARGET_SPOT(key)
+      this.ADD_TARGET_SPOT(key[0])
       this.target = this.targetSpotId
-      this.SET_SELECTED_SPOT({spot: key})
+      this.SET_SELECTED_SPOT(key[0])
       util.$emit('getComment')
-      util.$emit('getIntroduction')
-      util.$emit('getImage')
-      util.$emit('getRadarData')
     },
     deleteSpot (key) {
-      this.REDUCE_TARGET_SPOT(key)
+      this.REDUCE_TARGET_SPOT(key[0])
       this.target = this.targetSpotId
-      this.SET_SELECTED_SPOT({spot: key})
+      this.SET_SELECTED_SPOT(key[0])
       util.$emit('getComment')
-      util.$emit('getIntroduction')
-      util.$emit('getImage')
-      util.$emit('getRadarData')
     },
     startPlanning () {
-      util.$emit('initMap', 'msg')
+      util.$emit('initMap')
     },
     deselect () {
       this.REDUCE_ALL_TARGET_SPOT()
@@ -115,7 +115,6 @@ export default {
     height: 30px;
     background: #FFF;
     margin: 0;
-    // padding: 0;
     border-top: 1px solid #EBEEF5;
     position: absolute;
     bottom: 0;
@@ -125,8 +124,14 @@ export default {
   }
 }
 
-/deep/ .el-button + .el-button {
-  margin-left: 110px;
+.button {
+  display: flex;
+  justify-content: center;
+  .transfer-footer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 /deep/ .el-transfer__buttons {

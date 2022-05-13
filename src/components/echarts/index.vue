@@ -1,33 +1,32 @@
 <template>
-  <div class="radar"></div>
-
+  <div class="radar" v-bind="radarData">
+  </div>
 </template>
 
 <script>
 import {mapState} from 'vuex'
-import util from '../../common/util'
 
 export default {
-  name: 'index',
+  name: 'radar',
   data () {
     return {
       chart: '',
+      value: [],
+      name: '',
       option: {
         tooltip: {
           trigger: 'axis',
-          // 坐标轴指示器，坐标轴触发有效
           axisPointer: {
-            // 默认为直线，可选为：'line' | 'shadow'
             type: 'shadow'
           }
         },
         radar: {
-          radius: '66%',
+          radius: '60%',
           center: ['50%', '50%'],
           splitNumber: 8,
           splitArea: {
             areaStyle: {
-              color: 'rgba(127,95,132,.3)',
+              color: '#67c23a',
               opacity: 1,
               shadowBlur: 45,
               shadowColor: 'rgba(0,0,0,.5)',
@@ -36,55 +35,42 @@ export default {
             }
           },
           indicator: [
+            {name: 'Accommodation', max: 4},
             {name: 'Scenery', max: 4},
             {name: 'Repast', max: 4},
-            {name: 'Accommodation', max: 4},
-            {name: 'Shopping', max: 4},
             {name: 'Entertainment', max: 4},
+            {name: 'Shopping', max: 4},
             {name: 'Traffic', max: 4}
           ]
         },
         legend: {
           right: 'center',
           bottom: '6',
-          data: ['Spot Property']
+          data: []
         },
         series: [{
           type: 'radar',
           symbolSize: 0,
           areaStyle: {
-            normal: {
-              shadowBlur: 13,
-              shadowColor: 'rgba(0,0,0,.2)',
-              shadowOffsetX: 0,
-              shadowOffsetY: 10,
-              opacity: 1
-            }
+            shadowBlur: 13,
+            shadowColor: 'rgba(0,0,0,.2)',
+            shadowOffsetX: 0,
+            shadowOffsetY: 10,
+            opacity: 1
           },
-          data: [
-            {
-              value: [0, 1, 2, 3, 4, 3],
-              name: 'Spot Property'
-            }
+          data: [{
+            value: this.value,
+            name: this.name,
+          }
           ]
-
         }]
       },
-
     }
   },
-  created () {
-
-  },
   mounted () {
-    this.initChart()
-    let that = this
-    util.$on('getRadarData', function () {
-      that.getRadarData()
-    })
+    this.init()
   },
   watch: {
-    //观察option的变化
     option: {
       handler (newVal, oldVal) {
         if (this.chart) {
@@ -97,49 +83,38 @@ export default {
           this.init()
         }
       },
-      deep: true //对象内部属性的监听
+      deep: true
     },
   },
   computed: {
     ...mapState(['selectedSpot']),
+    radarData () {
+      if (this.selectedSpot) {
+        this.option.series[0].data[0].value = [
+          this.selectedSpot['accommodation_score'],
+          this.selectedSpot['scenery_score'],
+          this.selectedSpot['repast_score'],
+          this.selectedSpot['entertainment_score'],
+          this.selectedSpot['shopping_score'],
+          this.selectedSpot['traffic_score']
+        ]
+        this.option.series[0].data[0].name = this.selectedSpot['name'] + ' Property'
+        this.option.legend.data = [this.selectedSpot['name'] + ' Property']
+      }
+    },
   },
   methods: {
-    initChart () {
-      // 根据自己的id绑定echarts需要的div
+    init () {
       this.chart = this.$echarts.init(this.$el, 'macarons')
       this.chart.setOption(this.option, true)
-    },
-    getRadarData () {
-      let radarData = this.selectedSpot
-      this.option.series = [{
-        type: 'radar',
-        symbolSize: 0,
-        areaStyle: {
-          normal: {
-            shadowBlur: 13,
-            shadowColor: 'rgba(0,0,0,.2)',
-            shadowOffsetX: 0,
-            shadowOffsetY: 10,
-            opacity: 1
-          }
-        },
-        data: [
-          {
-            value: [radarData['scenery_score'], radarData['repast_score'], radarData['accommodation_score'], radarData['shopping_score'], radarData['entertainment_score'], radarData['traffic_score']],
-            name: 'Spot Property'
-            // name: radarData['name'],
-          }
-        ]
-      }]
     }
-  },
-
+  }
 }
 </script>
 
 <style scoped>
 .radar {
-  width: 400px;
+  width: 380px;
   height: 360px;
   box-shadow: 2px 4px 12px #99a9bf;
   margin-bottom: 5px;

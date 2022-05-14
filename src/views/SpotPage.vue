@@ -1,20 +1,24 @@
 <template>
-  <div class='spots-main'>
-    <div class='main-left'>
+    <div class='spots-main'>
+      <div class='main-left'>
         <transfer/>
-        <comment/>
-    </div>
-    <div class="main-center">
-      <carousel/>
-      <introduction/>
-      <AMap/>
-    </div>
-    <div class="main-right">
         <slider/>
+      </div>
+      <div class="main-center">
+        <nodata/>
+        <carousel/>
+        <introduction/>
+        <AMap/>
+        <node/>
+      </div>
+      <div class="main-right">
         <radar/>
-        <weather/>
+        <comment style="margin-top: 10px"/>
+        <weather style="margin-top: 10px"/>
+      </div>
+      <el-backtop target=".spots-main"></el-backtop>
+
     </div>
-  </div>
 </template>
 <script>
 import transfer from '../components/transfer/index'
@@ -25,6 +29,8 @@ import AMap from '../components/map/index'
 import slider from '../components/slider/index'
 import radar from '../components/echarts/index'
 import weather from '../components/weather/index'
+import node from '../components/node/index'
+import nodata from '../components/nodata/index'
 
 export default {
   data () {
@@ -39,6 +45,8 @@ export default {
     slider,
     radar,
     weather,
+    node,
+    nodata,
   },
   created () {
   },
@@ -46,20 +54,23 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
 .spots-main {
   display: flex;
   flex-direction: row;
   justify-content: center;
+
   .main-right {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     margin: 5px;
   }
-  .main-center{
+
+  .main-center {
     margin: 5px;
   }
-  .main-left{
+
+  .main-left {
     margin: 5px;
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-show="imageList">
     <el-carousel :interval="4000"  type="card" height="265px">
       <el-carousel-item v-for="(item,i) in imageList" :key="i">
         <img :src=item style="height:100%; width:100%">
@@ -25,7 +25,6 @@ export default {
         if (!this.selectedRoute) {
           return null
         } else if (this.selectedRoute) {
-          console.log(this.selectedRoute)
           return [this.selectedRoute.image]
         }
       } else {

@@ -104,7 +104,7 @@ export default {
 }
 
 /deep/ .el-transfer-panel {
-  width: 185px;
+  width: 190px;
   height: 425px;
 
   .el-checkbox__inner {

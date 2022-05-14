@@ -11,14 +11,13 @@
         :router='true'
         :default-active="this.$route.path"
       >
+        <img src='../assets/image/logo.png' style="height: 60px;width:100px; padding: 0 20px">
         <el-menu-item :index="item[0]" class="item">Routes</el-menu-item>
         <el-menu-item :index="item[1]" class="item">Attractions</el-menu-item>
       </el-menu>
     </div>
     <div class='main'>
-      <!--      <keep-alive>-->
       <router-view/>
-      <!--      </keep-alive>-->
     </div>
   </div>
 </template>
@@ -27,7 +26,7 @@
 export default {
   data () {
     return {
-      item: ['/route', '/spot', '/comment', '/weather']
+      item: ['/route', '/spot',]
     }
   },
   methods: {}
@@ -62,7 +61,7 @@ export default {
 
       .item {
         display: flex;
-        width: 400px;
+        width: 200px;
         justify-content: center;
         font-weight: bold;
       }

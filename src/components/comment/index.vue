@@ -1,7 +1,7 @@
 <template>
   <div class='content'>
     <div class='comment-list'>
-      <el-divider content-position="left">COMMENT</el-divider>
+      <el-divider content-position="center">COMMENT</el-divider>
       <div class="comment-box"
            v-infinite-scroll="load"
            style="overflow:auto"
@@ -12,7 +12,7 @@
           <p>{{ item.text }}</p>
           <el-divider/>
         </div>
-        <p v-if="noMore">No more</p>
+        <p style="display: block; text-align: center; font-weight: 800;" v-if="noMore">No more</p>
       </div>
     </div>
   </div>
@@ -78,27 +78,15 @@ export default {
 <style lang="scss" scoped>
 .content {
   height: 400px;
-  width: 370px;
-  //border: solid 1px #c8f3b3;
+  width: 380px;
   box-shadow: 2px 4px 12px #99a9bf;
 
-  .introduction-list {
-    height: 50px;
-    .introduction-box{
-      padding-left: 10px;
-    }
-  }
-
   .comment-list {
-    height: 300px;
-
     .comment-box {
       height: 350px;
-      margin: 10px;
-
       .inner-comment-box {
         width: 320px;
-        padding-left: 10px;
+        padding-left: 22px;
       }
     }
   }

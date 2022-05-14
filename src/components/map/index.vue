@@ -21,7 +21,6 @@ export default {
     this.initMap()
     var that = this
     util.$on('initMap', function (msg) {
-      console.log(msg)
       that.initMap()
     })
   },
@@ -67,13 +66,12 @@ export default {
             Array.from(that.targetSpot.values()).map((item) => {
               points.push({'keyword': item.name, 'city': '杭州'})
             })
-            console.log(points)
             var driving = new AMap.Driving(drivingOption)
             driving.search(points, function (status, result) {
               if (status === 'complete') {
-                log.success('Drawing driving route completed')
+                console.log('Drawing driving route completed')
               } else {
-                log.error('Failed to obtain driving data：' + result)
+                console.log('Failed to obtain driving data：' + result)
               }
             })
           }
@@ -81,11 +79,6 @@ export default {
           //Positioning error
           function onError (data) {
           }
-
-          var weather = new AMap.Weather()
-          weather.getLive('杭州市', function (err, data) {
-            console.log(err, data)
-          })
         })
       })
     },
@@ -93,12 +86,24 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #container {
-  width: 1100px;
+  width: 1000px;
   height: 430px;
-  /*border: solid 1px #77e851;*/
   box-shadow: 2px 4px 12px #99a9bf;
+
+}
+/deep/ .amap-logo{
+  display: none;
+  opacity:0 !important;
+}
+/deep/ .amap-copyright {
+  opacity:0;
+}
+.panel{
+  height: 100px;
+  width: 100px;
+  background: #FFFFFF;
 }
 
 

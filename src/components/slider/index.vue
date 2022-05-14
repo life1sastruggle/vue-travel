@@ -91,15 +91,22 @@ export default {
 }
 
 .component {
-  width: 350px;
-  margin: 20px 0 0 20px;
+  width: 340px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-
+  justify-content: space-around;
+  padding: 20px;
   .inner {
     width: 150px;
   }
 }
-
+/deep/ .el-slider__button{
+  border: 2px solid #67c23a;
+}
+/deep/ .el-slider__button-wrapper{
+  z-index: 0;
+}
+/deep/ .el-slider__bar{
+  background-color: #67c23a;
+}
 </style>

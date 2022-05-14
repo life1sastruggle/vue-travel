@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content" v-if="name">
     <div class='content-header'>{{ name }}</div>
     <div class='content-body'>{{ body }}</div>
   </div>

@@ -1,5 +1,5 @@
 <template>
-<div class="container" v-if="!$store.state.selectedSpot">
+<div class="container" v-if="!$store.state.selectedSpot&&!$store.state.selectedRoute">
     <div class="item">
       <img src="../../assets/image/exclamation_mark.svg">
       <span>No data</span>

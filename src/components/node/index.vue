@@ -29,6 +29,7 @@
 import {mapMutations, mapState} from 'vuex'
 import {goPageTop} from '../../common/base'
 import {host} from '../../common/config'
+import util from '../../common/util'
 
 export default {
   name: 'node',
@@ -61,6 +62,7 @@ export default {
     getInfo (item) {
       goPageTop()
       this.SET_SELECTED_SPOT(item.id)
+      util.$emit('getComment')
     },
   },
 }

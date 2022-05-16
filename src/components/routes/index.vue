@@ -18,7 +18,7 @@
         @next-click="nextClick"
         @prev-click="prevClick"
         @current-change="handleCurrentChange"
-        page-size="8"
+        :page-size="8"
         :total="total"
         class='pagination'>
       </el-pagination>

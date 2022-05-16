@@ -1,24 +1,37 @@
 <template>
-    <div class='spots-main'>
-      <div class='main-left'>
-        <transfer/>
-        <slider/>
-      </div>
-      <div class="main-center">
-        <nodata/>
-        <carousel/>
-        <introduction/>
-        <AMap/>
-        <node/>
-      </div>
-      <div class="main-right">
-        <radar/>
-        <comment style="margin-top: 10px"/>
-        <weather style="margin-top: 10px"/>
-      </div>
-      <el-backtop target=".spots-main"></el-backtop>
-
+  <div class='spots-main'>
+    <div class='main-left'>
+      <transfer/>
+      <slider/>
     </div>
+    <div class="main-center">
+      <nodata/>
+      <carousel/>
+      <introduction/>
+      <AMap/>
+      <node/>
+    </div>
+    <div class="main-right">
+      <radar/>
+      <comment style="margin-top: 10px"/>
+      <weather style="margin-top: 10px"/>
+    </div>
+    <el-backtop>
+      <div
+        style="{
+        height: 100%;
+        width: 100%;
+        background-color:  #67c23a;;
+        box-shadow: 0 0 6px rgba(0,0,0, .12);
+        text-align: center;
+        line-height: 40px;
+        color: #FFFFFF;
+      }"
+      >
+        UP
+      </div>
+    </el-backtop>
+  </div>
 </template>
 <script>
 import transfer from '../components/transfer/index'

@@ -18,6 +18,7 @@
         @next-click="nextClick"
         @prev-click="prevClick"
         @current-change="handleCurrentChange"
+        page-size="8"
         :total="total"
         class='pagination'>
       </el-pagination>
@@ -65,7 +66,7 @@ export default {
     nextClick () {
       this.params.page += 1
       this.getData()
-      goPageTop('#list')
+      goPageTop()
     },
     handleClick (item) {
       this.routeSpotParams.route_id = item.id
@@ -81,12 +82,12 @@ export default {
     handleCurrentChange (val) {
       this.params.page = val
       this.getData()
-      goPageTop('#list')
+      goPageTop()
     },
     prevClick () {
       this.params.page -= 1
       this.getData()
-      goPageTop('#list')
+      goPageTop()
     },
     mouseleave () {
       this.isActive = ''

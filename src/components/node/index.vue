@@ -13,8 +13,9 @@
         <i class="icon"></i>
         <span @click="getInfo(item)">{{ item.name }}</span>
         <p>{{ item.introduction }}</p>
-        <div class="node-picture" >
-          <div class="picture-item" :style="imageNum(item.attraction_image.length)" v-for="(imageItem,i) in item.attraction_image" :key=i>
+        <div class="node-picture">
+          <div class="picture-item" :style="imageNum(item.attraction_image.length)"
+               v-for="(imageItem,i) in item.attraction_image" :key=i>
             <img :src="host+imageItem.image">
           </div>
         </div>
@@ -43,21 +44,22 @@ export default {
       this.targetSpotId.forEach(id => res.push(this.targetSpot.get(id)))
       return res
     },
-    imageNum(){
-      return(length)=>{
-        if(length<3)
-          return "width: 400px; height:300px;"
-        else if(length===3)
-          return "width: 250px; height:185px;"
-         else if(length>3)
-          return "width: 190px; height: 142.5px;"
+    imageNum () {
+      return (length) => {
+        if (length < 3) {
+          return 'width: 400px; height:300px;'
+        } else if (length === 3) {
+          return 'width: 250px; height:185px;'
+        } else if (length > 3) {
+          return 'width: 190px; height: 142.5px;'
+        }
       }
     }
   },
   methods: {
     ...mapMutations(['SET_SELECTED_SPOT']),
     getInfo (item) {
-      goPageTop('#spots-main')
+      goPageTop()
       this.SET_SELECTED_SPOT(item.id)
     },
   },
@@ -141,7 +143,8 @@ export default {
       flex-wrap: wrap;
 
       .picture-item {
-        padding:3px;
+        padding: 3px;
+
         img {
           display: block;
           width: 100%;
